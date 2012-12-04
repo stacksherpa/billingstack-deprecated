@@ -1,0 +1,225 @@
+<section class="resource">
+	<fieldset>
+		<legend class="label label-success">GET /plans</legend>
+		<p>Get a list of all Plans</p>
+		<h2>Parameters</h2>
+		<dl>
+			<dt>offset (query string)</dt>
+			<dd>start index (pagination)</dd>
+			<dt>max (query string)</dt>
+			<dd>maximum number of records to get (pagination)</dd>
+		</dl>
+		<h2>Response</h2>
+<pre>[
+
+]</pre>
+	</fieldset>
+</section>
+<section class="resource">
+	<fieldset>
+		<legend class="label label-info">POST /plans</legend>
+		<p>Create a new Plan</p>
+		<h2>Request</h2>
+<pre class="json-code">{
+	"name":"basic",
+	"title":"Basic",
+	"description":"Basic Plan",
+	"items":[
+		{"product":{ "name":"instance:m1.tiny" }},
+		{"product":{"name":"volume"}, "rules":[
+			{"type":"volume-range", "ranges":[
+				{"from":0.00,"to":9.99,"price":0.10},
+				{"from":10.00,"to":19.99,"price":0.20}
+			]}
+		]}
+	],
+	"quotas":{
+		"gigabytes":1000,
+		"metadata_items":128,
+		"injected_files":5,
+		"security_group_rules":20,
+		"volumes":10,
+		"instances":10,
+		"security_groups":10,
+		"cores":20,
+		"floating_ips":10,
+		"ram":51200,
+		"key_pairs":100,
+		"injected_file_content_bytes":10240,
+		"injected_file_path_bytes":255
+	}
+}</pre>
+		<h2>Response</h2>
+<pre class="json-code">{
+	"id":"402881a23b1b84f0013b1b9436ff001f",
+	"merchant":{
+		"id":"402881a23b1b84f0013b1b9436ff001f"
+	},
+	"name":"basic",
+	"title":"Basic",
+	"description":"Basic Plan",
+	"items":[
+		{"product":{ "name":"instance:m1.tiny" }},
+		{"product":{"name":"volume"}, "rules":[
+			{"type":"volume-range", "ranges":[
+				{"from":0.00,"to":9.99,"price":0.10},
+				{"from":10.00,"to":19.99,"price":0.20}
+			]}
+		]}
+	],
+	"quotas":{
+		"gigabytes":1000,
+		"metadata_items":128,
+		"injected_files":5,
+		"security_group_rules":20,
+		"volumes":10,
+		"instances":10,
+		"security_groups":10,
+		"cores":20,
+		"floating_ips":10,
+		"ram":51200,
+		"key_pairs":100,
+		"injected_file_content_bytes":10240,
+		"injected_file_path_bytes":255
+	}
+}</pre>
+	</fieldset>
+</section>
+<section class="resource">
+	<fieldset>
+		<legend class="label label-success">GET /plans/{id}</legend>
+		<p>Get a single Plan</p>
+		<h2>Parameters</h2>
+		<dl>
+			<dt>id</dt>
+			<dd>Plan ID</dd>
+		</dl>
+		<h2>Response</h2>
+<pre class="json-code">{
+	"id":"402881a23b1b84f0013b1b9436ff001f",
+	"merchant":{
+		"id":"402881a23b1b84f0013b1b9436ff001f"
+	},
+	"name":"basic",
+	"title":"Basic",
+	"description":"Basic Plan",
+	"items":[
+		{"product":{ "name":"instance:m1.tiny" }},
+		{"product":{"name":"volume"}, "rules":[
+			{"type":"volume-range", "ranges":[
+				{"from":0.00,"to":9.99,"price":0.10},
+				{"from":10.00,"to":19.99,"price":0.20}
+			]}
+		]}
+	],
+	"quotas":{
+		"gigabytes":1000,
+		"metadata_items":128,
+		"injected_files":5,
+		"security_group_rules":20,
+		"volumes":10,
+		"instances":10,
+		"security_groups":10,
+		"cores":20,
+		"floating_ips":10,
+		"ram":51200,
+		"key_pairs":100,
+		"injected_file_content_bytes":10240,
+		"injected_file_path_bytes":255
+	}
+}</pre>
+	</fieldset>
+</section>
+<section class="resource">
+	<fieldset>
+		<legend class="label label-warning">PUT /plans/{id}</legend>
+		<p>Update a Plan</p>
+		<h2>Parameters</h2>
+		<dl>
+			<dt>id</dt>
+			<dd>Plan ID</dd>
+		</dl>
+		<h2>Request</h2>
+<pre class="json-code">{
+	"name":"professional",
+	"title":"Professional",
+	"description":"Professional Plan",
+	"items":[
+		{"product":{ "name":"instance:m1.tiny" }},
+		{"product":{"name":"volume"}, "rules":[
+			{"type":"volume-range", "ranges":[
+				{"from":0.00,"to":9.99,"price":0.10},
+				{"from":10.00,"to":19.99,"price":0.20}
+			]}
+		]}
+	],
+	"quotas":{
+		"gigabytes":1000,
+		"metadata_items":128,
+		"injected_files":5,
+		"security_group_rules":20,
+		"volumes":10,
+		"instances":10,
+		"security_groups":10,
+		"cores":20,
+		"floating_ips":10,
+		"ram":51200,
+		"key_pairs":100,
+		"injected_file_content_bytes":10240,
+		"injected_file_path_bytes":255
+	}
+}</pre>
+		<h2>Response</h2>
+<pre class="json-code">{
+	"id":"402881a23b1b84f0013b1b9436ff001f",
+	"merchant":{
+		"id":"402881a23b1b84f0013b1b9436ff001f"
+	},
+	"name":"professional",
+	"title":"Professional",
+	"description":"Professional Plan",
+	"items":[
+		{"product":{ "name":"instance:m1.tiny" }},
+		{"product":{"name":"volume"}, "rules":[
+			{"type":"volume-range", "ranges":[
+				{"from":0.00,"to":9.99,"price":0.10},
+				{"from":10.00,"to":19.99,"price":0.20}
+			]}
+		]}
+	],
+	"quotas":{
+		"gigabytes":1000,
+		"metadata_items":128,
+		"injected_files":5,
+		"security_group_rules":20,
+		"volumes":10,
+		"instances":10,
+		"security_groups":10,
+		"cores":20,
+		"floating_ips":10,
+		"ram":51200,
+		"key_pairs":100,
+		"injected_file_content_bytes":10240,
+		"injected_file_path_bytes":255
+	}
+}</pre>
+	</fieldset>
+</section>
+<section class="resource">
+	<fieldset>
+		<legend class="label label-important">DELETE /plans/{id}</legend>
+		<p>Delete a Plan</p>
+		<h2>Parameters</h2>
+		<dl>
+			<dt>merchant</dt>
+			<dd>Merchant ID</dd>
+			<dt>id</dt>
+			<dd>Plan ID</dd>
+		</dl>
+		<h2>Response</h2>
+		<dl>
+			<dt>Status</dt>
+			<dd>204 NO CONTENT</dd>
+		</dl>
+	</fieldset>
+</section>

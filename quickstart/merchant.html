@@ -1,0 +1,107 @@
+<h1>Test the REST API (new terminal)</h1>
+
+<h2>Create a merchant account</h2>
+<pre>curl -X POST \
+-H 'Content-Type: application/json' \
+-d '<span class="json-code">{"username": "stacksherpa", "password" : "secret0", "currency": "EUR"}</span>' \
+http://localhost:8080/billingstack/merchants
+</pre>
+<pre class="json-code">{
+"id":"402881a23b1c882b013b1c88ec060000",
+"username":"stacksherpa",
+"password":"secret0",
+"currency":"EUR",
+"api_key":"2c457f99646c0eb480f7ba",
+"api_secret":"87fe0c45f98125bfa101c09320"
+}</pre>
+
+<h2>Authenticate</h2>
+<pre>curl -X POST \
+-H 'Content-Type: application/json' \
+-d '<span class="json-code">{"api_key": "2c457f99646c0eb480f7ba", "api_secret": "87fe0c45f98125bfa101c09320"}</span>' 
+http://localhost:8080/billingstack/authenticate
+</pre>
+<pre class="json-code">{
+"id":"4b9e1411ed464d59a8f3663562ca77a1",
+"endpoint":"http://localhost:8080/billingstack/402881a23b1c882b013b1c88ec060000"
+}</pre>
+
+<h2>Register a Payment Gateway</h2>
+<pre>curl -X POST \
+-H 'Content-Type: application/json' \
+-H 'X-Auth-Token: 4b9e1411ed464d59a8f3663562ca77a1' \
+-d '<span class="json-code">{
+"name":"braintree",
+"title":"Braintree",
+"description":"Braintree Payments",
+"is_default":true,
+"configuration":{
+"environment":"sandbox",
+"api_key":"my_api_key",
+"api_secret":"my_secret_key"
+}
+}</span>' \
+http://localhost:8080/billingstack/402881a23b1c882b013b1c88ec060000/payment-gateways</pre>
+
+<h2>Register a Provider</h2>
+<pre>curl -X POST \
+-H 'Content-Type: application/json' \
+-H 'X-Auth-Token: 4b9e1411ed464d59a8f3663562ca77a1' \
+-d \
+'<span class="json-code">{
+"name":"openStack",
+"title":"OpenStack (EU)",
+"description":"OpenStack (EU)",
+"configuration": 
+{
+	"nova_endpoint":"http:\/\/stacksherpa.com:8774\/v2\/admin",
+	"username":"admin",
+	"password":"secret0",
+	"ceilometer_endpoint":"http:\/\/stacksherpa.com:8777\/v1"
+}
+}</span>' \
+http://localhost:8080/billingstack/402881a23b1c882b013b1c88ec060000/providers</pre>
+
+<h2>Import Products from Provider</h2>
+<pre>curl -X POST \
+-H 'Content-Type: application/json' \
+-H 'X-Auth-Token: 4b9e1411ed464d59a8f3663562ca77a1' \
+-d'<span class="json-code">{"products" : ""}</span>' \
+http://localhost:8080/billingstack/402881a23b1c882b013b1c88ec060000/providers/{id}/action</pre>
+
+<h2>Create a Plan</h2>
+<pre>curl -X POST \
+-H 'Content-Type: application/json' \
+-H 'X-Auth-Token: 4b9e1411ed464d59a8f3663562ca77a1' \
+-d'<span class="json-code">{
+"name":"basic",
+"title":"Basic",
+"description":"Basic Plan",
+"items":[
+{"product":{ "name":"instance:m1.tiny", "rules":[
+	{"type":"fixed", price : 1.25}
+]}},
+{"product":{"name":"volume"}, "rules":[
+	{"type":"volume-range", "ranges":[
+		{"from":0.00,"to":9.99,"price":0.10},
+		{"from":10.00,"to":19.99,"price":0.20}
+	]}
+]}
+],
+"quotas":{
+"gigabytes":1000,
+"metadata_items":128,
+"injected_files":5,
+"security_group_rules":20,
+"volumes":10,
+"instances":10,
+"security_groups":10,
+"cores":20,
+"floating_ips":10,
+"ram":51200,
+"key_pairs":100,
+"injected_file_content_bytes":10240,
+"injected_file_path_bytes":255
+}
+}</span>' \
+http://localhost:8080/billingstack/402881a23b1c882b013b1c88ec060000/plans</pre>

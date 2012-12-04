@@ -1,0 +1,33 @@
+<h2>Create a Customer Account</h2>
+<pre>curl -X POST \
+-H 'Content-Type: application/json' \
+-d '<span class="json-code">{
+"username":"luis.gervaso",
+"email":"luis@woorea.es",
+"first_name":null,
+"last_name":null,
+"company":null,
+"phone":null,
+"address_1":null,
+"address_2":null,
+"city":null,
+"state":null,
+"zip":null,
+"country":null,
+"language":null,
+"currency":null
+}</span>' \
+http://localhost:8080/billingstack/402881a23b1c882b013b1c88ec060000/accounts</pre>
+
+<h2>Create Subscription</h2>
+<pre>curl -X POST \
+-H 'Content-Type: application/json' -d \
+'<span class="json-code">{
+"plan":{"id":"402881a23b1ba492013b1baa94df001c"},
+"resources":[
+{"provider":{"id":"402881a23b1ba492013b1baa8a4a0002"},"type":"tenant","id":"123"},
+{"provider":{"id":"402881a23b1ba492013b1baa8ab20003"},"type":"number","id":"987"}
+]
+}</span>' \
+http://localhost:8080/billingstack/402881a23b1c882b013b1c88ec060000/accounts/402881a23b1ba492013b1baa96e70022/subscriptions</pre>
+<pre></pre>

@@ -1,0 +1,107 @@
+<section class="resource">
+	<fieldset>
+		<legend class="label label-success">GET /products</legend>
+		<p>Get a list of all Products</p>
+		<h2>Parameters</h2>
+		<dl>
+			<dt>offset (query string)</dt>
+			<dd>start index (pagination)</dd>
+			<dt>max (query string)</dt>
+			<dd>maximum number of records to get (pagination)</dd>
+		</dl>
+		<h2>Response</h2>
+<pre>[
+
+]</pre>
+	</fieldset>
+</section>
+<section class="resource">
+	<fieldset>
+		<legend class="label label-info">POST /products</legend>
+		<p>Create a new Product</p>
+		<h2>Request</h2>
+<pre class="json-code">{
+	"name":"volume_size",
+	"type":"gauge",
+	"measure":"gb",
+	"title":null,
+	"description":"Size of measure"
+}</pre>
+		<h2>Response</h2>
+<pre class="json-code">{
+	"id":"402881a23b1ba492013b1bb7550b0062",
+	"merchant":{"id":"402881a23b1ba492013b1bb747770047"},
+	"name":"volume_size",
+	"type":"gauge",
+	"measure":"gb",
+	"title":null,
+	"description":"Size of measure"
+}</pre>
+	</fieldset>
+</section>
+<section class="resource">
+	<fieldset>
+		<legend class="label label-success">GET /products/{id}</legend>
+		<p>Get a single Product</p>
+		<h2>Parameters</h2>
+		<dl>
+			<dt>id</dt>
+			<dd>Product ID</dd>
+		</dl>
+		<h2>Response</h2>
+<pre class="json-code">{
+	"id":"402881a23b1ba492013b1bb7550b0062",
+	"merchant":{"id":"402881a23b1ba492013b1bb747770047"},
+	"name":"volume_size",
+	"type":"gauge",
+	"measure":"gb",
+	"title":null,
+	"description":"Size of measure"
+}</pre>
+	</fieldset>
+</section>
+<section class="resource">
+	<fieldset>
+		<legend class="label label-warning">PUT /products/{id}</legend>
+		<p>Update a Product</p>
+		<h2>Parameters</h2>
+		<dl>
+			<dt>id</dt>
+			<dd>Product ID</dd>
+		</dl>
+		<h2>Request</h2>
+<pre class="json-code">{
+	"name":"volume_size",
+	"type":"gauge",
+	"measure":"gb",
+	"title":null,
+	"description":"Size of measure"
+}</pre>
+		<h2>Response</h2>
+<pre class="json-code">{
+	"id":"402881a23b1ba492013b1bb7550b0062",
+	"merchant":{"id":"402881a23b1ba492013b1bb747770047"},
+	"name":"volume_size",
+	"type":"gauge",
+	"measure":"gb",
+	"title":null,
+	"description":"Size of measure"
+}</pre>
+	</fieldset>
+</section>
+<section class="resource">
+	<fieldset>
+		<legend class="label label-important">DELETE /products/{id}</legend>
+		<p>Delete a Product</p>
+		<h2>Parameters</h2>
+		<dl>
+			<dt>id</dt>
+			<dd>Product ID</dd>
+		</dl>
+		<h2>Response</h2>
+		<dl>
+			<dt>Status</dt>
+			<dd>204 NO CONTENT</dd>
+		</dl>
+	</fieldset>
+</section>

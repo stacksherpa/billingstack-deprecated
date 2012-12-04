@@ -1,0 +1,62 @@
+<section class="resource">
+	<fieldset>
+		<legend class="label label-success">GET /plans/{plan}/products</legend>
+		<p>Get a list of all Plan Products</p>
+		<h2>Parameters</h2>
+		<dl>
+			<dt>offset (query string)</dt>
+			<dd>start index (pagination)</dd>
+			<dt>max (query string)</dt>
+			<dd>maximum number of records to get (pagination)</dd>
+		</dl>
+		<h2>Response</h2>
+<pre class="json-code">[
+
+]</pre>
+	</fieldset>
+</section>
+<section class="resource">
+	<fieldset>
+		<legend class="label label-info">PUT /plans/{plan}/products/{product}</legend>
+		<p>Create or Update a new Plan Product</p>
+		<h2>Request</h2>
+<pre class="json-code">{
+
+}</pre>
+		<h2>Response</h2>
+<pre class="json-code">{
+
+}</pre>
+	</fieldset>
+</section>
+<section class="resource">
+	<fieldset>
+		<legend class="label label-success">GET /plans/{plan}/products/{id}</legend>
+		<p>Get a single Plan Product</p>
+		<h2>Parameters</h2>
+		<dl>
+			<dt>id</dt>
+			<dd>Plan Product ID</dd>
+		</dl>
+		<h2>Response</h2>
+<pre class="json-code">{
+
+}</pre>
+	</fieldset>
+</section>
+<section class="resource">
+	<fieldset>
+		<legend class="label label-important">DELETE /plans/{plan}/products/{id}</legend>
+		<p>Delete a Plan Product</p>
+		<h2>Parameters</h2>
+		<dl>
+			<dt>id</dt>
+			<dd>Plan Product ID</dd>
+		</dl>
+		<h2>Response</h2>
+		<dl>
+			<dt>Status</dt>
+			<dd>204 NO CONTENT</dd>
+		</dl>
+	</fieldset>
+</section>

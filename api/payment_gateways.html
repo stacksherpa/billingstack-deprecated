@@ -1,0 +1,151 @@
+<section class="resource">
+	<fieldset>
+		<legend class="label label-success">GET /payment-gateways</legend>
+		<p>Get a list of all Payment Gateways</p>
+		<h2>Parameters</h2>
+		<dl>
+			<dt>merchant</dt>
+			<dd>Merchant ID</dd>
+			<dt>offset (query string)</dt>
+			<dd>start index (pagination)</dd>
+			<dt>max (query string)</dt>
+			<dd>maximum number of records to get (pagination)</dd>
+		</dl>
+		<h2>Response</h2>
+<pre>[
+
+]</pre>
+	</fieldset>
+</section>
+<section class="resource">
+	<fieldset>
+		<legend class="label label-info">POST /payment-gateways</legend>
+		<p>Create a new Payment Gateway</p>
+		<h2>Parameters</h2>
+		<dl>
+			<dt>merchant</dt>
+			<dd>Merchant ID</dd>
+		</dl>
+		<h2>Request</h2>
+<pre class="json-code">{
+	"name":"braintree",
+	"title":"Braintree",
+	"description":"Braintree Payments",
+	"is_default":true,
+	"configuration":{
+		"environment":"sandbox",
+		"merchant_id":"billingstack",
+		"public_key":"ABCD",
+		"private_key":"ABCD"
+	}
+}</pre>
+		<h2>Response</h2>
+<pre class="json-code">{
+	"id":"402881a23b1b84f0013b1b8bec550002",
+	"merchant":{
+		"id":"402881a23b1b84f0013b1b891cca0000"
+	}
+	"name":"braintree",
+	"title":"Braintree",
+	"description":"Braintree Payments",
+	"is_default":true,
+	"configuration":{
+		"environment":"sandbox",
+		"merchant_id":"billingstack",
+		"public_key":"ABCD",
+		"private_key":"ABCD"
+	}
+}</pre>
+	</fieldset>
+</section>
+<section class="resource">
+	<fieldset>
+		<legend class="label label-success">GET /payment-gateways/{id}</legend>
+		<p>Get a single Payment Gateway</p>
+		<h2>Parameters</h2>
+		<dl>
+			<dt>merchant</dt>
+			<dd>Merchant ID</dd>
+			<dt>id</dt>
+			<dd>Payment Gateway ID</dd>
+		</dl>
+		<h2>Response</h2>
+<pre class="json-code">{
+	"id":"402881a23b1b84f0013b1b8bec550002",
+	"merchant":{
+		"id":"402881a23b1b84f0013b1b891cca0000"
+	}
+	"name":"braintree",
+	"title":"Braintree",
+	"description":"Braintree Payments",
+	"is_default":true,
+	"configuration":{
+		"environment":"sandbox",
+		"merchant_id":"billingstack",
+		"public_key":"ABCD",
+		"private_key":"ABCD"
+	}
+}</pre>
+	</fieldset>
+</section>
+<section class="resource">
+	<fieldset>
+		<legend class="label label-warning">PUT /payment-gateways/{id}</legend>
+		<p>Update a Payment Gateway</p>
+		<h2>Parameters</h2>
+		<dl>
+			<dt>merchant</dt>
+			<dd>Merchant ID</dd>
+			<dt>id</dt>
+			<dd>Payment Gateway ID</dd>
+		</dl>
+		<h2>Request</h2>
+<pre>{
+	"name":"braintree",
+	"title":"Braintree",
+	"description":"Braintree Payments",
+	"is_default":true,
+	"configuration":{
+		"environment":"sandbox",
+		"merchant_id":"billingstack"
+		"public_key":"ABCD",
+		"private_key":"ABCD"
+	}
+}</pre>
+		<h2>Response</h2>
+<pre class="json-code">{
+	"id":"402881a23b1b84f0013b1b8bec550002",
+	"merchant":{
+		"id":"402881a23b1b84f0013b1b891cca0000"
+	}
+	"name":"braintree",
+	"title":"Braintree",
+	"description":"Braintree Payments",
+	"is_default":true,
+	"configuration":{
+		"environment":"sandbox",
+		"merchant_id":"billingstack"
+		"public_key":"ABCD",
+		"private_key":"ABCD"
+	}
+}</pre>
+	</fieldset>
+</section>
+<section class="resource">
+	<fieldset>
+		<legend class="label label-important">DELETE /payment-gateways/{id}</legend>
+		<p>Delete a Payment Gateway</p>
+		<h2>Parameters</h2>
+		<dl>
+			<dt>merchant</dt>
+			<dd>Merchant ID</dd>
+			<dt>id</dt>
+			<dd>Payment Gateway ID</dd>
+		</dl>
+		<h2>Response</h2>
+		<dl>
+			<dt>Status</dt>
+			<dd>204 NO CONTENT</dd>
+		</dl>
+	</fieldset>
+</section>

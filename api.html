@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>BillingStack &middot; OpenSource REST API</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="stacksherpa">
+
+    <!-- Le styles -->
+    <link href="bootstrap/css/bootstrap.css" rel="stylesheet">
+    <link href="bootstrap/css/bootstrap-responsive.css" rel="stylesheet">
+    <link href="css/billingstack.css" rel="stylesheet">
+
+    <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
+    <!--[if lt IE 9]>
+      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+
+    <!-- Fav and touch icons -->
+    <link rel="shortcut icon" href="../assets/ico/favicon.ico">
+    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="../assets/ico/apple-touch-icon-144-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="../assets/ico/apple-touch-icon-114-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="../assets/ico/apple-touch-icon-72-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" href="../assets/ico/apple-touch-icon-57-precomposed.png">
+  </head>
+
+  <body>
+
+    <div class="container">
+
+      <div class="masthead">
+        <ul class="nav nav-pills pull-right">
+          <li><a href="index.html">Home</a></li>
+          <li><a href="quickstart.html">Quick Start</a></li>
+          <li class="active"><a href="api.html">API</a></li>
+          <li><a href="faq.html">FAQ</a></li>
+        </ul>
+        <h1 class="muted"><span style="color: #000000">billing</span><strong style="color: #A6CE95">stack</strong></h1>
+      </div>
+
+      <hr>
+
+      <div class="row-fluid marketing">
+      	<div id="main" class="span9">
+          <img id="uml-map" src="images/uml.png" usemap="#uml-map" border="0" width="875" height="957" alt="" />
+          <map id="_uml-map" name="uml-map">
+          <area shape="rect" coords="378,4,550,85" href="http://billingstack.github.com/billingstack/api.html#transactions" alt="Transaction" title="Transaction"    />
+          <area shape="rect" coords="715,4,870,85" href="http://billingstack.github.com/billingstack/api.html#merchants" alt="Merchant" title="Merchant"    />
+          <area shape="rect" coords="213,223,315,304" href="http://billingstack.github.com/billingstack/api.html#plans" alt="Plan" title="Plan"    />
+          <area shape="rect" coords="399,222,527,303" href="http://billingstack.github.com/billingstack/api.html#invoices" alt="Invoice" title="Invoice"    />
+          <area shape="rect" coords="659,218,801,299" href="http://billingstack.github.com/billingstack/api.html#accounts" alt="Account" title="Account"    />
+          <area shape="rect" coords="64,439,206,520" href="http://billingstack.github.com/billingstack/api.html#plan_item" alt="PlanItem" title="PlanItem"    />
+          <area shape="rect" coords="238,434,406,515" href="http://billingstack.github.com/billingstack/api.html#invoice_line" alt="InvoiceLine" title="InvoiceLine"    />
+          <area shape="rect" coords="435,440,620,521" href="http://billingstack.github.com/billingstack/api.html#subscriptions" alt="Subscription" title="Subscription"    />
+          <area shape="rect" coords="638,439,823,520" href="http://billingstack.github.com/billingstack/api.html#credit_cards" alt="Credit Card" title="Credit Card"    />
+          <area shape="rect" coords="41,655,226,736" href="http://billingstack.github.com/billingstack/api.html#plan_item_rules" alt="PlanItemRule" title="PlanItemRule"    />
+          <area shape="rect" coords="517,660,659,741" href="http://billingstack.github.com/billingstack/api.html#products" alt="Product" title="Product"    />
+          <area shape="rect" coords="6,871,268,952" href="http://billingstack.github.com/billingstack/api.html#plan_item_rule_ranges" alt="PlanItemRuleRange" title="PlanItemRuleRange"    />
+          </map>
+        </div>
+        <div id="menu" class="span3"></div>
+      </div>
+
+      <hr>
+
+      <div class="footer">
+        <p>&copy; StackSherpa 2012</p>
+      </div>
+
+    </div> <!-- /container -->
+
+    <!-- Le javascript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="js/jquery-1.8.3.min.js"></script>
+    <script src="bootstrap/js/bootstrap.min.js"></script>
+    <script src="js/billingstack.js"></script>
+    <script>
+    	$('#menu').load('api/resources.html');
+    	$('#navigation-tree a').live('click', function(evt) {
+    		evt.preventDefault();
+    		$('#main').load(this.href, function() {
+          prettifyJsonCode();
+        });
+			$('#navigation-tree').find('li').removeClass('active');
+			$(this).parent('li').addClass('active');
+    	});
+    </script>
+	<script type="text/javascript">
+
+	  var _gaq = _gaq || [];
+	  _gaq.push(['_setAccount', 'UA-36508034-1']);
+	  _gaq.push(['_trackPageview']);
+
+	  (function() {
+	    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+	    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+	    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+	  })();
+
+	</script>
+  </body>
+</html>

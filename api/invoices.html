@@ -1,0 +1,92 @@
+<section class="resource">
+	<fieldset>
+		<legend class="label label-success">GET /accounts/{account}/invoices</legend>
+		<p>Get a list of all Invoices</p>
+		<h2>Parameters</h2>
+		<dl>
+			<dt>account</dt>
+			<dd>Account ID</dd>
+			<dt>offset (query string)</dt>
+			<dd>start index (pagination)</dd>
+			<dt>max (query string)</dt>
+			<dd>maximum number of records to get (pagination)</dd>
+		</dl>
+		<h2>Response</h2>
+<pre class="json-code">[
+
+]</pre>
+	</fieldset>
+</section>
+<section class="resource">
+	<fieldset>
+		<legend class="label label-info">POST /accounts/{account}/invoices</legend>
+		<p>Create a new Invoice</p>
+		<h2>Parameters</h2>
+		<dl>
+			<dt>account</dt>
+			<dd>Account ID</dd>
+		</dl>
+		<h2>Request</h2>
+<pre class="json-code">{
+
+}</pre>
+		<h2>Response</h2>
+<pre class="json-code">{
+
+}</pre>
+	</fieldset>
+</section>
+<section class="resource">
+	<fieldset>
+		<legend class="label label-success">GET /accounts/{account}/invoices/{id}</legend>
+		<p>Get a single Invoice</p>
+		<h2>Parameters</h2>
+		<dl>
+			<dt>account</dt>
+			<dd>Account ID</dd>
+			<dt>id</dt>
+			<dd>Invoice ID</dd>
+		</dl>
+		<h2>Response</h2>
+<pre>{
+
+}</pre>
+	</fieldset>
+</section>
+<section class="resource">
+	<fieldset>
+		<legend class="label label-warning">PUT /accounts/{account}/invoices/{id}</legend>
+		<p>Update a Invoice</p>
+		<h2>Parameters</h2>
+		<dl>
+			<dt>id</dt>
+			<dd>Invoice ID</dd>
+		</dl>
+		<h2>Request</h2>
+<pre class="json-code">{
+
+}</pre>
+		<h2>Response</h2>
+<pre class="json-code">{
+
+}</pre>
+	</fieldset>
+</section>
+<section class="resource">
+	<fieldset>
+		<legend class="label label-important">DELETE /accounts/{account}/invoices/{id}</legend>
+		<p>Delete a Invoice</p>
+		<h2>Parameters</h2>
+		<dl>
+			<dt>account</dt>
+			<dd>Account ID</dd>
+			<dt>id</dt>
+			<dd>Invoice ID</dd>
+		</dl>
+		<h2>Response</h2>
+		<dl>
+			<dt>Status</dt>
+			<dd>204 NO CONTENT</dd>
+		</dl>
+	</fieldset>
+</section>

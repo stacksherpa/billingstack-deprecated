@@ -1,0 +1,165 @@
+<section class="resource">
+	<fieldset>
+		<legend class="label label-success">GET /customers</legend>
+		<p>Get a list of all Customers</p>
+		<h2>Parameters</h2>
+		<dl>
+			<dt>offset (query string)</dt>
+			<dd>start index (pagination)</dd>
+			<dt>max (query string)</dt>
+			<dd>maximum number of records to get (pagination)</dd>
+		</dl>
+		<h2>Response</h2>
+<pre>[
+
+]</pre>
+	</fieldset>
+</section>
+<section class="resource">
+	<fieldset>
+		<legend class="label label-info">POST /customers</legend>
+		<p>Create a new Customer</p>
+		<h2>Parameters</h2>
+		<dl>
+			<dt>merchant</dt>
+			<dd>Merchant ID</dd>
+		</dl>
+		<h2>Request</h2>
+<pre>{
+	"username":"luis.gervaso",
+	"email":"luis@woorea.es",
+	"first_name":null,
+	"last_name":null,
+	"company":null,
+	"phone":null,
+	"address_1":null,
+	"address_2":null,
+	"city":null,
+	"state":null,
+	"zip":null,
+	"country":null,
+	"language":null,
+	"currency":null
+}</pre>
+		<h2>Response</h2>
+<pre>{
+	"id":"402881a23b1ba492013b1baa96e70022",
+	"merchant":{
+		"id":"402881a23b1ba492013b1baa87620000"
+	},
+	"username":"luis.gervaso",
+	"email":"luis@woorea.es",
+	"first_name":null,
+	"last_name":null,
+	"company":null,
+	"phone":null,
+	"address_1":null,
+	"address_2":null,
+	"city":null,
+	"state":null,
+	"zip":null,
+	"country":null,
+	"language":null,
+	"currency":null
+}</pre>
+	</fieldset>
+</section>
+<section class="resource">
+	<fieldset>
+		<legend class="label label-success">GET /customers/{id}</legend>
+		<p>Get a single Customer</p>
+		<h2>Parameters</h2>
+		<dl>
+			<dt>merchant</dt>
+			<dd>Merchant ID</dd>
+			<dt>id</dt>
+			<dd>Customer ID</dd>
+		</dl>
+		<h2>Response</h2>
+<pre>{
+	"id":"402881a23b1ba492013b1baa96e70022",
+	"merchant":{
+		"id":"402881a23b1ba492013b1baa87620000"
+	},
+	"username":"luis.gervaso",
+	"email":"luis@woorea.es",
+	"first_name":null,
+	"last_name":null,
+	"company":null,
+	"phone":null,
+	"address_1":null,
+	"address_2":null,
+	"city":null,
+	"state":null,
+	"zip":null,
+	"country":null,
+	"language":null,
+	"currency":null
+}</pre>
+	</fieldset>
+</section>
+<section class="resource">
+	<fieldset>
+		<legend class="label label-warning">PUT /customers/{id}</legend>
+		<p>Update an Customer</p>
+		<h2>Parameters</h2>
+		<dl>
+			<dt>id</dt>
+			<dd>Customer ID</dd>
+		</dl>
+		<h2>Request</h2>
+<pre>{
+	"username":"luis.gervaso",
+	"email":"luis@woorea.es",
+	"first_name":null,
+	"last_name":null,
+	"company":null,
+	"phone":null,
+	"address_1":null,
+	"address_2":null,
+	"city":null,
+	"state":null,
+	"zip":null,
+	"country":null,
+	"language":null,
+	"currency":null
+}</pre>
+		<h2>Response</h2>
+<pre>{
+	"id":"402881a23b1ba492013b1baa96e70022",
+	"merchant":{
+		"id":"402881a23b1ba492013b1baa87620000"
+	},
+	"username":"luis.gervaso",
+	"email":"luis@woorea.es",
+	"first_name":null,
+	"last_name":null,
+	"company":null,
+	"phone":null,
+	"address_1":null,
+	"address_2":null,
+	"city":null,
+	"state":null,
+	"zip":null,
+	"country":null,
+	"language":null,
+	"currency":null
+}</pre>
+	</fieldset>
+</section>
+<section class="resource">
+	<fieldset>
+		<legend class="label label-important">DELETE /customers/{id}</legend>
+		<p>Delete an Customer</p>
+		<h2>Parameters</h2>
+		<dl>
+			<dt>id</dt>
+			<dd>Customer ID</dd>
+		</dl>
+		<h2>Response</h2>
+		<dl>
+			<dt>Status</dt>
+			<dd>204 NO CONTENT</dd>
+		</dl>
+	</fieldset>
+</section>

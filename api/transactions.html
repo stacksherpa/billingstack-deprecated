@@ -1,0 +1,82 @@
+<!-- -->
+<section class="resource">
+	<fieldset>
+		<legend class="label label-success">GET /transactions</legend>
+		<p>Get a list of all Transactions</p>
+		<h2>Parameters</h2>
+		<dl>
+			<dt>offset (query string)</dt>
+			<dd>start index (pagination)</dd>
+			<dt>max (query string)</dt>
+			<dd>maximum number of records to get (pagination)</dd>
+		</dl>
+		<h2>Response</h2>
+<pre>[
+
+]</pre>
+	</fieldset>
+</section>
+<section class="resource">
+	<fieldset>
+		<legend class="label label-info">POST /transactions</legend>
+		<p>Create a new Transaction</p>
+		<h2>Request</h2>
+<pre class="json-code">{
+
+}</pre>
+		<h2>Response</h2>
+<pre class="json-code">{
+
+}</pre>
+	</fieldset>
+</section>
+<section class="resource">
+	<fieldset>
+		<legend class="label label-success">GET /transactions/{id}</legend>
+		<p>Get a single Transaction</p>
+		<h2>Parameters</h2>
+		<dl>
+			<dt>id</dt>
+			<dd>Transaction ID</dd>
+		</dl>
+		<h2>Response</h2>
+<pre>{
+
+}</pre>
+	</fieldset>
+</section>
+<section class="resource">
+	<fieldset>
+		<legend class="label label-warning">PUT /transactions/{id}</legend>
+		<p>Update a Transaction</p>
+		<h2>Parameters</h2>
+		<dl>
+			<dt>id</dt>
+			<dd>Transaction ID</dd>
+		</dl>
+		<h2>Request</h2>
+<pre class="json-code">{
+
+}</pre>
+		<h2>Response</h2>
+<pre class="json-code">{
+
+}</pre>
+	</fieldset>
+</section>
+<section class="resource">
+	<fieldset>
+		<legend class="label label-important">DELETE /transactions/{id}</legend>
+		<p>Delete a Transaction</p>
+		<h2>Parameters</h2>
+		<dl>
+			<dt>id</dt>
+			<dd>Transaction ID</dd>
+		</dl>
+		<h2>Response</h2>
+		<dl>
+			<dt>Status</dt>
+			<dd>204 NO CONTENT</dd>
+		</dl>
+	</fieldset>
+</section>

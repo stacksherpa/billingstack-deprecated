@@ -1,0 +1,83 @@
+<section class="resource">
+	<fieldset>
+		<legend class="label label-success">GET /accounts/{account}/subscriptions</legend>
+		<p>Get a list of all Subscriptions</p>
+		<h2>Parameters</h2>
+		<dl>
+			<dt>account</dt>
+			<dd>Account ID</dd>
+			<dt>offset (query string)</dt>
+			<dd>start index (pagination)</dd>
+			<dt>max (query string)</dt>
+			<dd>maximum number of records to get (pagination)</dd>
+		</dl>
+		<h2>Response</h2>
+<pre>[
+
+]</pre>
+	</fieldset>
+</section>
+<section class="resource">
+	<fieldset>
+		<legend class="label label-info">POST /accounts/{account}/subscriptions</legend>
+		<p>Create a new Subscription</p>
+		<h2>Parameters</h2>
+		<dl>
+			<dt>account</dt>
+			<dd>Account ID</dd>
+		</dl>
+		<h2>Request</h2>
+<pre class="json-code">{
+	"plan":{"id":"402881a23b1ba492013b1baa94df001c"},
+	"resources":[
+		{"provider":{"id":"402881a23b1ba492013b1baa8a4a0002"},"type":"tenant","id":"123"},
+		{"provider":{"id":"402881a23b1ba492013b1baa8ab20003"},"type":"number","id":"987"}
+	]
+}</pre>
+		<h2>Response</h2>
+<pre class="json-code">{
+	"id":"402881a23b1ba492013b1bb262f00046",
+	"account":{"id":"402881a23b1ba492013b1bb25c8a0045"},
+	"plan":{"id":"402881a23b1ba492013b1bb25bf0003f"},
+	"billing_day":20
+}</pre>
+	</fieldset>
+</section>
+<section class="resource">
+	<fieldset>
+		<legend class="label label-success">GET /merchants/{merchant}/accounts/{account}/subscriptions/{id}</legend>
+		<p>Get a single Subscription</p>
+		<h2>Parameters</h2>
+		<dl>
+			<dt>account</dt>
+			<dd>Account ID</dd>
+			<dt>id</dt>
+			<dd>Subscription ID</dd>
+		</dl>
+		<h2>Response</h2>
+<pre>{
+	"id":"402881a23b1ba492013b1bb262f00046",
+	"account":{"id":"402881a23b1ba492013b1bb25c8a0045"},
+	"plan":{"id":"402881a23b1ba492013b1bb25bf0003f"},
+	"billing_day":20
+}</pre>
+	</fieldset>
+</section>
+<section class="resource">
+	<fieldset>
+		<legend class="label label-important">DELETE /merchants/{merchant}/accounts/{account}/subscriptions/{id}</legend>
+		<p>Delete a Subscription</p>
+		<h2>Parameters</h2>
+		<dl>
+			<dt>account</dt>
+			<dd>Account ID</dd>
+			<dt>id</dt>
+			<dd>Subscription ID</dd>
+		</dl>
+		<h2>Response</h2>
+		<dl>
+			<dt>Status</dt>
+			<dd>204 NO CONTENT</dd>
+		</dl>
+	</fieldset>
+</section>
