@@ -8,6 +8,8 @@ class BillingEntity {
 	Date lastUpdated
 
 	Boolean deleted = Boolean.FALSE
+	
+	Map metadata = [:]
 
     static constraints = {
     	id()

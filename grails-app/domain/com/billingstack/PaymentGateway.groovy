@@ -12,8 +12,6 @@ class PaymentGateway extends BillingEntity {
 
 	String description
 
-	String metadata
-
 	Boolean isDefault = Boolean.FALSE
 
 	static belongsTo = [
@@ -23,10 +21,6 @@ class PaymentGateway extends BillingEntity {
 	static constraints = {
 		title(nullable : true)
 		description(nullable : true)
-	}
-
-	static mapping = {
-	  metadata type: 'text'
 	}
 
 	def serialize() {
@@ -39,7 +33,7 @@ class PaymentGateway extends BillingEntity {
 			'title' : title,
 			'description' : description,
 			'is_default' : isDefault,
-			'metadata' : metadata ? JSON.parse(metadata) : [:]
+			'metadata' : metadata
 		]
 	}
 
