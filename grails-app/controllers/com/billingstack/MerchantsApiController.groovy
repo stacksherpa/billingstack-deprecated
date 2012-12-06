@@ -21,10 +21,11 @@ class MerchantsApiController {
     try {
         render merchantsService.create(request.JSON).serialize(true) as JSON
     } catch(e) {
-      response.status = 500
-      def error = ["error":message(code: 'user.username.not.unique.message', args: [])]
-      render error as JSON
-      return
+		log.error(e.message,e)
+		response.status = 500
+		def error = ["error":message(code: 'user.username.not.unique.message', args: [])]
+		render error as JSON
+		return
     }
   }
 
