@@ -13,6 +13,8 @@ class PaymentGateway extends BillingEntity {
 	String description
 
 	Boolean isDefault = Boolean.FALSE
+	
+	String metadata
 
 	static belongsTo = [
 		merchant : Merchant
@@ -33,7 +35,7 @@ class PaymentGateway extends BillingEntity {
 			'title' : title,
 			'description' : description,
 			'is_default' : isDefault,
-			'metadata' : metadata
+			'metadata' : metadata ? JSON.parse(metadata) : [:]
 		]
 	}
 

@@ -9,12 +9,13 @@ class MerchantsApiController {
   def list() {
     try {
         render merchantsService.list(params).collect { it.serialize() } as JSON
-    } catch(e) {
-      response.status = 500
-      def error = ["error":e as String]
-      render error as JSON
-      return
-    } 
+	} catch(e) {
+		log.error(e.message,e)
+		response.status = 500
+		def error = ["error":e.message]
+		render error as JSON
+		return
+	} 
   }
 
   def create() {
@@ -23,7 +24,7 @@ class MerchantsApiController {
     } catch(e) {
 		log.error(e.message,e)
 		response.status = 500
-		def error = ["error":message(code: 'user.username.not.unique.message', args: [])]
+		def error = ["error":e.message]
 		render error as JSON
 		return
     }
@@ -32,23 +33,25 @@ class MerchantsApiController {
   def show(String id) {
     try {
         render merchantsService.get(id).serialize() as JSON
-    } catch(e) {
-      response.status = 500
-      def error = ["error":e.message]
-      render error as JSON
-      return
-    }
+	} catch(e) {
+		log.error(e.message,e)
+		response.status = 500
+		def error = ["error":e.message]
+		render error as JSON
+		return
+	}
   }
 
   def update(String id) {
     try {
         render merchantsService.update(id, request.JSON).serialize() as JSON
-    } catch(e) {
-      response.status = 500
-      def error = ["error":e.message]
-      render error as JSON
-      return
-    } 
+	} catch(e) {
+		log.error(e.message,e)
+		response.status = 500
+		def error = ["error":e.message]
+		render error as JSON
+		return
+	}
   }
 
   def delete(String id) {
@@ -56,13 +59,13 @@ class MerchantsApiController {
       merchantsService.delete(id)
       response.status = 204
       render ""
-    } catch(e) {
-      response.status = 500
-      def error = ["error":e.message]
-      render error as JSON
-      return
-    }
-    
+	} catch(e) {
+		log.error(e.message,e)
+		response.status = 500
+		def error = ["error":e.message]
+		render error as JSON
+		return
+	}
   }
 
 }
