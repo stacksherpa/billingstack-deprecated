@@ -29,17 +29,17 @@
 		<h2>Request</h2>
 <pre class="json-code">{
 	"plan":{"id":"402881a23b1ba492013b1baa94df001c"},
-	"resources":[
-		{"provider":{"id":"402881a23b1ba492013b1baa8a4a0002"},"type":"tenant","id":"123"},
-		{"provider":{"id":"402881a23b1ba492013b1baa8ab20003"},"type":"number","id":"987"}
-	]
+	"provider" : "openstack",
+	"resource" : "tenant:12345678"
 }</pre>
 		<h2>Response</h2>
 <pre class="json-code">{
 	"id":"402881a23b1ba492013b1bb262f00046",
 	"account":{"id":"402881a23b1ba492013b1bb25c8a0045"},
 	"plan":{"id":"402881a23b1ba492013b1bb25bf0003f"},
-	"billing_day":20
+	"billing_day":20,
+	"provider" : "openstack",
+	"resource" : "tenant:12345678"
 }</pre>
 	</fieldset>
 </section>
@@ -59,7 +59,9 @@
 	"id":"402881a23b1ba492013b1bb262f00046",
 	"account":{"id":"402881a23b1ba492013b1bb25c8a0045"},
 	"plan":{"id":"402881a23b1ba492013b1bb25bf0003f"},
-	"billing_day":20
+	"billing_day":20,
+	"provider" : "openstack",
+	"resource" : "tenant:12345678"
 }</pre>
 	</fieldset>
 </section>

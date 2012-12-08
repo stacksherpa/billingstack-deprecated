@@ -24,29 +24,33 @@
 	"name":"basic",
 	"title":"Basic",
 	"description":"Basic Plan",
-	"items":[
-		{"product":{ "name":"instance:m1.tiny" }},
-		{"product":{"name":"volume"}, "rules":[
+	"products":[
+		{"name":"instance:m1.tiny","rules":[
+			{"type":"fixed", "price":15}
+		]},
+		{"name":"storage","rules":[
 			{"type":"volume-range", "ranges":[
-				{"from":0.00,"to":9.99,"price":0.10},
-				{"from":10.00,"to":19.99,"price":0.20}
+				{"to":9.99,"price":0.10},
+				{"from":10.00,"price":0.20}
 			]}
 		]}
 	],
-	"quotas":{
-		"gigabytes":1000,
-		"metadata_items":128,
-		"injected_files":5,
-		"security_group_rules":20,
-		"volumes":10,
-		"instances":10,
-		"security_groups":10,
-		"cores":20,
-		"floating_ips":10,
-		"ram":51200,
-		"key_pairs":100,
-		"injected_file_content_bytes":10240,
-		"injected_file_path_bytes":255
+	"metadata":{
+		"quotas":{
+			"gigabytes":1000,
+			"metadata_items":128,
+			"injected_files":5,
+			"security_group_rules":20,
+			"volumes":10,
+			"instances":10,
+			"security_groups":10,
+			"cores":20,
+			"floating_ips":10,
+			"ram":51200,
+			"key_pairs":100,
+			"injected_file_content_bytes":10240,
+			"injected_file_path_bytes":255
+		}
 	}
 }</pre>
 		<h2>Response</h2>
@@ -58,29 +62,33 @@
 	"name":"basic",
 	"title":"Basic",
 	"description":"Basic Plan",
-	"items":[
-		{"product":{ "name":"instance:m1.tiny" }},
-		{"product":{"name":"volume"}, "rules":[
+	"products":[
+		{"name":"instance:m1.tiny","rules":[
+			{"type":"fixed", "price":15}
+		]},
+		{"name":"storage","rules":[
 			{"type":"volume-range", "ranges":[
-				{"from":0.00,"to":9.99,"price":0.10},
-				{"from":10.00,"to":19.99,"price":0.20}
+				{"to":9.99,"price":0.10},
+				{"from":10.00,"price":0.20}
 			]}
 		]}
 	],
-	"quotas":{
-		"gigabytes":1000,
-		"metadata_items":128,
-		"injected_files":5,
-		"security_group_rules":20,
-		"volumes":10,
-		"instances":10,
-		"security_groups":10,
-		"cores":20,
-		"floating_ips":10,
-		"ram":51200,
-		"key_pairs":100,
-		"injected_file_content_bytes":10240,
-		"injected_file_path_bytes":255
+	"metadata":{
+		"quotas":{
+			"gigabytes":1000,
+			"metadata_items":128,
+			"injected_files":5,
+			"security_group_rules":20,
+			"volumes":10,
+			"instances":10,
+			"security_groups":10,
+			"cores":20,
+			"floating_ips":10,
+			"ram":51200,
+			"key_pairs":100,
+			"injected_file_content_bytes":10240,
+			"injected_file_path_bytes":255
+		}
 	}
 }</pre>
 	</fieldset>
@@ -103,29 +111,33 @@
 	"name":"basic",
 	"title":"Basic",
 	"description":"Basic Plan",
-	"items":[
-		{"product":{ "name":"instance:m1.tiny" }},
-		{"product":{"name":"volume"}, "rules":[
+	"products":[
+		{"name":"instance:m1.tiny","rules":[
+			{"type":"fixed", "price":15}
+		]},
+		{"name":"storage","rules":[
 			{"type":"volume-range", "ranges":[
-				{"from":0.00,"to":9.99,"price":0.10},
-				{"from":10.00,"to":19.99,"price":0.20}
+				{"to":9.99,"price":0.10},
+				{"from":10.00,"price":0.20}
 			]}
 		]}
 	],
-	"quotas":{
-		"gigabytes":1000,
-		"metadata_items":128,
-		"injected_files":5,
-		"security_group_rules":20,
-		"volumes":10,
-		"instances":10,
-		"security_groups":10,
-		"cores":20,
-		"floating_ips":10,
-		"ram":51200,
-		"key_pairs":100,
-		"injected_file_content_bytes":10240,
-		"injected_file_path_bytes":255
+	"metadata":{
+		"quotas":{
+			"gigabytes":1000,
+			"metadata_items":128,
+			"injected_files":5,
+			"security_group_rules":20,
+			"volumes":10,
+			"instances":10,
+			"security_groups":10,
+			"cores":20,
+			"floating_ips":10,
+			"ram":51200,
+			"key_pairs":100,
+			"injected_file_content_bytes":10240,
+			"injected_file_path_bytes":255
+		}
 	}
 }</pre>
 	</fieldset>
@@ -141,32 +153,36 @@
 		</dl>
 		<h2>Request</h2>
 <pre class="json-code">{
-	"name":"professional",
-	"title":"Professional",
-	"description":"Professional Plan",
-	"items":[
-		{"product":{ "name":"instance:m1.tiny" }},
-		{"product":{"name":"volume"}, "rules":[
+	"name":"basic",
+	"title":"Basic",
+	"description":"Basic Plan",
+	"products":[
+		{"name":"instance:m1.tiny","rules":[
+			{"type":"fixed", "price":15}
+		]},
+		{"name":"storage","rules":[
 			{"type":"volume-range", "ranges":[
-				{"from":0.00,"to":9.99,"price":0.10},
-				{"from":10.00,"to":19.99,"price":0.20}
+				{"to":9.99,"price":0.10},
+				{"from":10.00,"price":0.20}
 			]}
 		]}
 	],
-	"quotas":{
-		"gigabytes":1000,
-		"metadata_items":128,
-		"injected_files":5,
-		"security_group_rules":20,
-		"volumes":10,
-		"instances":10,
-		"security_groups":10,
-		"cores":20,
-		"floating_ips":10,
-		"ram":51200,
-		"key_pairs":100,
-		"injected_file_content_bytes":10240,
-		"injected_file_path_bytes":255
+	"metadata":{
+		"quotas":{
+			"gigabytes":1000,
+			"metadata_items":128,
+			"injected_files":5,
+			"security_group_rules":20,
+			"volumes":10,
+			"instances":10,
+			"security_groups":10,
+			"cores":20,
+			"floating_ips":10,
+			"ram":51200,
+			"key_pairs":100,
+			"injected_file_content_bytes":10240,
+			"injected_file_path_bytes":255
+		}
 	}
 }</pre>
 		<h2>Response</h2>
@@ -175,32 +191,36 @@
 	"merchant":{
 		"id":"402881a23b1b84f0013b1b9436ff001f"
 	},
-	"name":"professional",
-	"title":"Professional",
-	"description":"Professional Plan",
-	"items":[
-		{"product":{ "name":"instance:m1.tiny" }},
-		{"product":{"name":"volume"}, "rules":[
+	"name":"basic",
+	"title":"Basic",
+	"description":"Basic Plan",
+	"products":[
+		{"name":"instance:m1.tiny","rules":[
+			{"type":"fixed", "price":15}
+		]},
+		{"name":"storage","rules":[
 			{"type":"volume-range", "ranges":[
-				{"from":0.00,"to":9.99,"price":0.10},
-				{"from":10.00,"to":19.99,"price":0.20}
+				{"to":9.99,"price":0.10},
+				{"from":10.00,"price":0.20}
 			]}
 		]}
 	],
-	"quotas":{
-		"gigabytes":1000,
-		"metadata_items":128,
-		"injected_files":5,
-		"security_group_rules":20,
-		"volumes":10,
-		"instances":10,
-		"security_groups":10,
-		"cores":20,
-		"floating_ips":10,
-		"ram":51200,
-		"key_pairs":100,
-		"injected_file_content_bytes":10240,
-		"injected_file_path_bytes":255
+	"metadata":{
+		"quotas":{
+			"gigabytes":1000,
+			"metadata_items":128,
+			"injected_files":5,
+			"security_group_rules":20,
+			"volumes":10,
+			"instances":10,
+			"security_groups":10,
+			"cores":20,
+			"floating_ips":10,
+			"ram":51200,
+			"key_pairs":100,
+			"injected_file_content_bytes":10240,
+			"injected_file_path_bytes":255
+		}
 	}
 }</pre>
 	</fieldset>
