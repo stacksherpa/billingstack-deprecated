@@ -28,8 +28,8 @@ class PlansApiController {
                 title : json.title,
                 description : json.description
             )
-			if(json.quotas) {
-                plan.quotas = json.quotas.toString()
+			if(json.metadata) {
+                plan.metadata = json.metadata.toString()
 			}
             if(json.products) {
                 json.products.each { current ->
@@ -42,7 +42,7 @@ class PlansApiController {
                             name : current.name
                         )
                     }
-                    def planProduct = new PlanProduct(product : product)
+                    def planProduct = PlanProduct.newInstance('product' : product)
 					if(current.rules) {
 						current.rules.each { rule ->
 				            def planProductRule = new PlanProductRule(type : rule.type)
@@ -60,18 +60,18 @@ class PlansApiController {
 				            planProduct.addToRules(planProductRule)
 				        }
 					}
-			        
-			        plan.addToProducts(planProduct)
+					plan.addToProducts(planProduct)
                 }
             }
-            plan.save(flush: true, failOnError : true)
+			plan.save(flush: true, failOnError : true)
             render plan.serialize() as JSON
-        } catch (e) {
-            response.status = 500
-            def error = ["error":e.message]
-            render error  as JSON
-            return
-        }  
+		} catch(e) {
+			log.error(e.message,e)
+			response.status = 500
+			def error = ["error":e.message]
+			render error as JSON
+			return
+		}  
     }
 
     def show(String merchant, String id) {

@@ -33,6 +33,8 @@ class SubscriptionsService {
         instance.customer = Customer.load(customer)
         instance.plan = Plan.load(json.plan.id)
         instance.billingDay = new Date().date
+		instance.provider = json.provider
+		instance.resource = json.resource
         instance.save(flush : true, failOnError : true)
     }
 

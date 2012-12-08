@@ -11,7 +11,7 @@ class MerchantsService {
     instance.username = json.username
     instance.password = json.password
     instance.language = json.language
-    instance.currency = json.currency
+    instance.currency = json.currency ?: "USD"
 	if(json.contact_information) {
 		instance.contactInformation.email = json.contact_information.email
 	    instance.contactInformation.firstName = json.contact_information.first_name

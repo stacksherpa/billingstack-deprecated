@@ -5,9 +5,12 @@ class Usage {
 	Subscription subscription
 	Product product
 	
-	BigDecimal duration
-	BigDecimal max
-	BigDecimal sum
+	BigDecimal value
+	
+	String measure
+	
+	BigDecimal price
+	BigDecimal total
 
 	Date startTimestamp
 	Date endTimestamp
@@ -18,9 +21,10 @@ class Usage {
 
 	static constraints = {
 		subscription()
-		product()
-		max(nullable : true)
-		sum(nullable : true)
+		value(nullable : true)
+		measure(nullable : true)
+		price(nullable : true)
+		total(nullable : true)
 		startTimestamp(nullable : true)
 		endTimestamp(nullable : true)
 	}
@@ -34,9 +38,10 @@ class Usage {
 			'product' : [
 				id : product.id
 			],
-			'duration' : duration,
-			'max' : max,
-			'sum' : sum,
+			'value' : value,
+			'measure' : measure,
+			'price' : price,
+			'total' : total,
 			'start_timestamp' : startTimestamp,
 			'end_timestamp' : endTimestamp
 		]

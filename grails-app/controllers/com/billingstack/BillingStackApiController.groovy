@@ -62,9 +62,9 @@ class BillingStackApiController {
 	def bill(String merchant, String account, String subscription) {
 		try {
 			billingService.bill(merchant, account, subscription)
-			response.status = 204
-			render ""
+			render(status : 204, text : "")
     } catch(e) {
+		log.error(e.message, e)
         response.status = 500
         def error = ["error":e.message]
         render(text: error as JSON, contentType: 'application/json', encoding:"UTF-8")

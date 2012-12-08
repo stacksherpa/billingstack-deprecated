@@ -43,12 +43,12 @@ class PlanProductsApiController {
             planProduct.addToRules(planProductRule)
         }
 		def planInstance = Plan.get(plan)
-        planInstance.addToProducts(planProduct)
+		plan.addToProducts(planProduct)
         if (!planInstance.save(flush: true, failOnError : true)) {
             def error = ["error":""]
             render error as JSON
             return
-        } 
+        }
         render planProduct.serialize() as JSON
     }
 

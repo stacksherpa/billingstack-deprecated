@@ -6,7 +6,7 @@ class User extends BillingEntity {
 	String password
 
     String language
-    String currency
+    String currency = "USD"
 
 	String apiKey
 	String apiSecret
@@ -22,7 +22,7 @@ class User extends BillingEntity {
     	password(nullable : true)
 
         language(nullable : true)
-        currency(nullable : true)
+        currency()
 
     	apiKey(nullable : true)
     	apiSecret(nullable : true)

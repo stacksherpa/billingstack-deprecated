@@ -41,7 +41,10 @@ class UrlMappings {
 		"/$merchant/customers/$customer/subscriptions/$id"(controller : "subscriptionsApi"){
 			action = [GET : "show", DELETE : "delete", PUT : "update"]
 		}
-		"/$merchant/customers/$customer/subscriptions/$subscription/usage"(controller : "usageApi"){
+		"/$merchant/customers/$customer/subscriptions/$subscription/usages"(controller : "usageApi"){
+			action = [GET : "list", POST : "create"]
+		}
+		"/$merchant/usages"(controller : "usageApi"){
 			action = [GET : "list", POST : "create"]
 		}
 		"/$merchant/customers/$customer/invoices"(controller : "invoicesApi"){

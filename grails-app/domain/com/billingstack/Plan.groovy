@@ -2,20 +2,25 @@ package com.billingstack
 
 import grails.converters.JSON
 
-class Plan extends BillingEntity {
+class Plan {
+	
+	String id
 
 	Merchant merchant
 
 	String name
 	String title
 	String description
-
-	String quotas
-
+	
+	String metadata
+	
+	Date dateCreated
+	Date lastUpdated
+	
 	List products = []
 	
 	Set subscriptions = [] as Set
-
+	
 	static belongsTo = [
 	    merchant : Merchant
 	]
@@ -29,26 +34,22 @@ class Plan extends BillingEntity {
 		merchant(unique : 'name')
 		title nullable : true
 		description nullable : true
-    	quotas nullable : true
+    	metadata nullable : true
   }
 
   static mapping = {
-    quotas type: 'text'
+	id generator : "uuid", type : "string"
+	metadata type: 'text'
   }
 
   def serialize(plan) {
     [
         'id' : id,
-        'merchant' : [
-          'id' : id
-        ],
         'name' : name,
         'title' : title,
         'description' : description,
-        'products' : products.collect { planProduct ->
-            planProduct.serialize()
-        },
-        'quotas' : quotas ? JSON.parse(quotas) : [:]
+        'products' : products.collect { it.serialize() },
+        'metadata' : metadata ? JSON.parse(metadata) : [:]
     ]
   }
 

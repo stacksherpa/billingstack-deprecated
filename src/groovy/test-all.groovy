@@ -38,7 +38,7 @@ def plans() {
 
 def customers() {
 	println "Customers ..."
-	def merchant = client.post("/merchants",["username":"merchant4", "password":"secret0"])
+	def merchant = client.post("/merchants",["username":"merchant", "password":"secret0"])
 	def paymentGateway = client.post("/${merchant.id}/payment-gateways", [
 		name : "braintree",
 		title : "Braintree",
@@ -51,7 +51,7 @@ def customers() {
 	    	private_key : "3f1dad64a338342ab7172d48bd8ebca4"
 	    ]
 	])
-	def customer = client.post("/${merchant.id}/customers",["username":"customer2", "password":"secret0"])
+	def customer = client.post("/${merchant.id}/customers",["username":"customer", "password":"secret0"])
 	client.put("/${merchant.id}/customers/${customer.id}",["password":"other"])
 	def plans = client.get("/${merchant.id}/customers")
 	client.delete("/${merchant.id}/customers/${customer.id}")
@@ -60,19 +60,82 @@ def customers() {
 
 def subscriptions() {
 	println "Subscriptions ..."
-	def merchant = client.post("/merchants",["username":"merchant", "password":"secret0"])
-	def plan = client.post("/${merchant.id}/plans",[:])
-	def customer = client.post("/${merchant.id}/customers",["username":"customer", "password":"secret0"])
+	def merchant = client.post("/merchants",["username":"merchant1", "password":"secret0"])
+	def paymentGateway = client.post("/${merchant.id}/payment-gateways", [
+		name : "braintree",
+		title : "Braintree",
+		description : "Braintree Payments",
+	    is_default : true,
+	    metadata : [
+	    	environment : "sandbox",
+	    	merchant_id : "5mtj4sf8bm94v5t8",
+	    	public_key : "c6mv34m9yvcv3jpb",
+	    	private_key : "3f1dad64a338342ab7172d48bd8ebca4"
+	    ]
+	])
+	def instance = client.post("/${merchant.id}/products",["name":"instance:m1.tiny"])
+	def storage = client.post("/${merchant.id}/products",["name":"storage"])
+	def plan = client.post("/${merchant.id}/plans",[
+		name:"plan",
+		metadata : [
+			quotas : [
+				"x" : 1
+			]
+		],
+		products : [
+			[
+				name : "instance:m1.tiny",
+				rules : [
+					[type : "fixed", price : 15]
+				]
+			],
+			[
+				name : "storage",
+				rules : [
+					[
+						type : "volume-range",
+						ranges : [
+							[to : 9.99, price : 100],
+							[from : 10, to : 19.99, price : 50],
+							[from : 20, price : 50]
+						]
+					]
+				]
+			]
+		]
+	])
+	def customer = client.post("/${merchant.id}/customers",["username":"customer1", "password":"secret0"])
 	def subscription = client.post("/${merchant.id}/customers/${customer.id}/subscriptions",[
 		"plan": [
 			"id" : plan.id
-		]
+		],
+		"provider" : "openstack",
+		"resource" : "tenant:1234"
 	])
 	def subscriptions = client.get("/${merchant.id}/customers/${customer.id}/subscriptions")
+	def usages = client.post("/${merchant.id}/usages", [
+		[
+			provider : "openstack",
+			resource : "tenant:1234",
+			product : [name : "instance:m1.tiny"],
+			value : 250,
+			measure : "minutes"
+		],
+		[
+			provider : "openstack",
+			resource : "tenant:1234",
+			product : [name : "storage"],
+			value : 100,
+			measure : "gb"
+		]
+	])
+	client.post("/${merchant.id}/bill",[:])
+	println client.get("/${merchant.id}/invoices")
 	client.delete("/${merchant.id}/customers/${customer.id}/subscriptions/${subscription.id}")
 	client.delete("/${merchant.id}/customers/${customer.id}")
-	client.delete("/${merchant.id}/plans/${plans.id}")
+	client.delete("/${merchant.id}/plans/${plan.id}")
+	client.delete("/${merchant.id}/payment-gateways/${paymentGateway.id}")
 	client.delete("/merchants/${merchant.id}")
 }
 
-customers()
+subscriptions()

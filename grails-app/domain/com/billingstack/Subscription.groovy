@@ -14,7 +14,10 @@ class Subscription extends BillingEntity {
 
 	Integer billingDay
 	
-	Set usage = [] as Set
+	String provider
+	String resource
+	
+	Set usages = [] as Set
 	
 	static belongsTo = [
 		merchant : Merchant,
@@ -23,12 +26,14 @@ class Subscription extends BillingEntity {
 	]
 	
 	static hasMany = [
-		usage : Usage
+		usages : Usage
 	]
 
 	static constraints = {
-	  paymentMethod nullable : true
-	  billingDay nullable : true
+		paymentMethod nullable : true
+		billingDay nullable : true
+		provider nullable : true
+		resource nullable : true
 	}
 
 	def serialize() {
@@ -40,7 +45,9 @@ class Subscription extends BillingEntity {
 			'plan' : [
 				'id' : plan.id
 			],
-			'billing_day' : billingDay
+			'billing_day' : billingDay,
+			'provider' : provider,
+			'resource' : resource
 		]
 	}
 

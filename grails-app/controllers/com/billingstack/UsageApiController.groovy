@@ -21,26 +21,41 @@ class UsageApiController {
 
     def create(String merchant, String customer, String subscription) {
         sdf.timeZone = TimeZone.getTimeZone("UTC") 
-
-        def json = request.JSON
-        try {
-            def instance = new Usage(
-                subscription : Subscription.load(subscription),
-                product : Product.load(json.product.id),
-                duration : json.duration,
-                sum : json.sum,
-                max : json.max,
-                startTimestamp : sdf.parse(json.start_timestamp),
-                endTimestamp : sdf.parse(json.end_timestamp)
-            )
-            instance.save(flush: true, failOnError : true)
-            render instance.serialize() as JSON
-        } catch(e) {
-            def error = ["error": json.product.id + " not found"]
-            render error as JSON
-            return
-        }
-
+		def usages = []
+		request.JSON.each {
+			try {
+	            def usage = new Usage()
+				if(subscription) {
+					usage.subscription = Subscription.load(subscription)
+				} else {
+					usage.subscription = Subscription.findWhere(provider : it.provider, resource : it.resource)
+				}
+				if(usage.subscription) {
+					usage.product = Product.findByIdOrName(it.product.id, it.product.name)
+	                usage.value = it.value
+	                usage.measure = it.measure
+					try {
+						usage.startTimestamp = sdf.parse(it.start_timestamp)
+		                usage.endTimestamp = sdf.parse(it.end_timestamp)
+					} catch (e) {
+						usage.startTimestamp = new Date()
+		                usage.endTimestamp = new Date()
+					}
+		            usages << usage.save(flush: true, failOnError : true)
+				} else {
+					log.error("subscription not found for usage : $it")
+					def error = ["error": "subscription not found for usage : $it"]
+		            render error as JSON
+		            return
+				}
+	        } catch(e) {
+				log.error(e.message, e)
+				def error = ["error": e.message]
+				render error as JSON
+				return
+	        }
+		}
+		render usages.collect { it.serialize() } as JSON
     }
 
     def show(String merchant, String customer, String subscription, String id) { 

@@ -1,6 +1,6 @@
 package com.billingstack
 
-class BillingEntity {
+abstract class BillingEntity {
 
 	String id
 

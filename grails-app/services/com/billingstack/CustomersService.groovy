@@ -19,10 +19,11 @@ class CustomersService {
     def create(String merchant, json) {
         try {
             def instance = new Customer()
+			instance.merchant = Merchant.get(merchant)
             instance.username = json.username
             instance.password = json.password
             instance.language = json.language
-            instance.currency = json.currency
+            instance.currency = json.currency ?: instance.merchant.currency
 			if(json.contact_information) {
 				instance.contactInformation.email = json.contact_information.email
 	            instance.contactInformation.firstName = json.contact_information.first_name
@@ -38,7 +39,6 @@ class CustomersService {
 			}
             instance.apiKey = (UUID.randomUUID() as String).replaceAll('-','').substring(10)
             instance.apiSecret = (UUID.randomUUID() as String).replaceAll('-','').substring(6)
-            instance.merchant = Merchant.load(merchant)
 			instance.save(flush : true, failOnError : true)
 			def paymentGateway = paymentGatewaysService.load(merchant)
             paymentGateway.createAccount([account : instance])

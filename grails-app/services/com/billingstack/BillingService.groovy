@@ -13,8 +13,8 @@ class BillingService {
     def bill(String merchant, String customer, String subscription) {
 			if(subscription) {
 				billSubscription(Subscription.get(subscription))
-			} else if(account) {
-				billAccount(Account.get(account))
+			} else if(customer) {
+				billAccount(Account.get(customer))
 			} else {
 				billMerchant(merchant)
 			}
@@ -22,31 +22,25 @@ class BillingService {
 
 	def billSubscription(Subscription subscription) {
 		def invoice = [
-				subscription : [
-					id : subscription.id
-				],
-				lines : [],
-				subtotal : 0
-			]
-		def resources = JSON.parse(subscription.resources)
-		resources.each { sResource ->
-			def provider = providersService.create(sResource.provider.id)
-			def usage = provider.usage(sResource)
-			println usage
-			billUsage(subscription, invoice, usage)
-		}
+			subscription : [
+				id : subscription.id
+			],
+			lines : [],
+			subtotal : 0
+		]
+		billUsage(subscription, invoice, subscription.usages)
 	}
 	
 	def billAccount(Customer customer) {
 
-		account.subscriptions.each { subscription ->
+		customer.subscriptions.each { subscription ->
     		billSubscription(subscription)
     	}
 	}
 	
 	def billMerchant(String merchant) {
 		//actually must filter by current day as well
-		subscriptionsService.list(merchant : merchant).each { subscription ->
+		subscriptionsService.findAllWhere(merchant : merchant).each { subscription ->
     		billSubscription(subscription)
     	}
 	}
@@ -54,45 +48,37 @@ class BillingService {
     def billUsage(subscription, invoice, usages) {
     	
     	usages.each { usage ->
-
-				def item = subscription.plan.items.find { item ->
-	    		item.product.name == usage.product_name
-	    	}
-	    	if(item) {
-	    		if(item.rules) {
-	    			item.rules.each { rule ->
-			    		if(rule.type == 'fixed') { //fixed
-				        invoice.lines << [
-				          description : item.product.name,
-				          quantity : usage.duration,
-				          price : rule.price,
-				          subtotal : usage.duration * rule.price / 60
-				        ]
-				      } else {
-				        def range = rule.ranges.find { range ->
-				          range.valueFrom <= usage.sum && usage.sum <= range.valueTo
-				        }
-				        invoice.lines << [
-				          description : item.product.name,
-				          quantity : usage.sum,
-				          price : range.price,
-				          subtotal : usage.sum * range.price
-				        ]
-
-				      }
+			def item = subscription.plan.products.find { item ->
+				item.product.name == usage.product.name
+			}
+			if(item) {
+				if(item.rules) {
+					item.rules.each { rule ->
+						if(rule.type == 'fixed') { //fixed
+							usage.price = rule.price
+							usage.total = rule.price * usage.value
+						} else {
+							def range = rule.ranges.find { range ->
+								(!range.valueFrom || range.valueFrom <= usage.value) &&
+								(!range.valueTo || usage.value <= range.valueTo)
+							}
+							usage.price = range.price
+							usage.total = range.price * usage.value
+						}
 			    	}
-	    		} else if(item.product.price) {
-	    			invoice.lines << [
-			          description : item.product.name,
-			          quantity : usage.duration,
-			          price : item.product.price,
-			          subtotal : usage.duration * item.product.price / 60
-			      ]
-	    		}
-	    	}
-	    	
+				} else if(item.product.price) {
+					usage.price = item.product.price
+					usage.total = usage.value * item.product.price
+				}
+				invoice.lines << [
+					description : item.product.name,
+					quantity : usage.value,
+					price : usage.price,
+					subtotal : usage.total
+				]
+			}
     	}
-		def createdInvoice = invoicesService.create(subscription.merchant.id, subscription.account.id, invoice)
+		def createdInvoice = invoicesService.create(subscription.merchant.id, subscription.customer.id, invoice)
 		invoice
     }
 }

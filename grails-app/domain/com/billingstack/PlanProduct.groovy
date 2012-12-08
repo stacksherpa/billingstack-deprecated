@@ -1,17 +1,18 @@
 package com.billingstack
 
-import org.hibernate.proxy.HibernateProxyHelper
+import org.apache.commons.lang.builder.HashCodeBuilder
 
-class PlanProduct extends BillingEntity {
+class PlanProduct implements Serializable {
 
 	Plan plan
 
 	Product product
 
 	List rules = []
-
-	static belongsTo =[
-		plan : Plan
+	
+	static belongsTo = [
+		plan : Plan,
+		product : Product
 	]
 
 	static hasMany = [
@@ -24,15 +25,18 @@ class PlanProduct extends BillingEntity {
       rules()
     }
 
+	static mapping = {
+		id composite: ['plan', 'product']
+		rules cascade: 'all-delete-orphan'
+		version false
+	}
+
     def serialize() {
-      [
-          'id' : id,
-          'plan' : [id : plan.id],
-          'product' : product.serialize(),
-          'rules' : rules.collect { rule ->
-              rule.serialize()
-          }
-      ]
+		def json = product.serialize()
+		json.rules = rules.collect { rule ->
+			rule.serialize()
+		}
+		json
     }
 
 }
