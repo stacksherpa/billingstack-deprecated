@@ -33,6 +33,7 @@ grails.project.dependency.resolution = {
         mavenRepo "http://oss.sonatype.org/content/repositories/snapshots"
         mavenRepo "http://braintree.github.com/braintree_java/releases"
         mavenRepo 'http://maven.springframework.org/milestone'
+		mavenRepo 'http://repo1.maven.org/maven2'
     }
     dependencies {
         // specify dependencies here under either 'build', 'compile', 'runtime', 'test' or 'provided' scopes eg.

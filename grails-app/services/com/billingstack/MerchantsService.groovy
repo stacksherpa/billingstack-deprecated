@@ -1,12 +1,17 @@
 package com.billingstack
 
+import com.billingstack.exceptions.JSONObjectException
+
 class MerchantsService {
 
   def list(filters) { 
   	Merchant.list(filters)
   }
 
-  def create(json) {
+  def create(json) throws JSONObjectException {
+	if (json.username==null) {	
+		throw new JSONObjectException("Username is mandatory")  
+	}
     def instance = new Merchant()
     instance.username = json.username
     instance.password = json.password
@@ -48,3 +53,4 @@ class MerchantsService {
   }
   
 }
+  

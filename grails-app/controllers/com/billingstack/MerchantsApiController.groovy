@@ -20,7 +20,7 @@ class MerchantsApiController {
 
   def create() {
     try {
-        render merchantsService.create(request.JSON).serialize(true) as JSON
+		render merchantsService.create(request.JSON).serialize(true) as JSON
     } catch(e) {
 		log.error(e.message,e)
 		response.status = 500

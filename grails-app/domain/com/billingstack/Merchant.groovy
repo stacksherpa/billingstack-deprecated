@@ -3,13 +3,9 @@ package com.billingstack
 class Merchant extends User {
 
 	Set products
-
 	Set customers
-
 	Set subscriptions
-
 	Set invoices
-
 	Set paymentGateways
 
 	static hasMany = [
@@ -19,23 +15,20 @@ class Merchant extends User {
 		paymentGateways : PaymentGateway,
 	]
 
-	static constraints = {
-		customers()
-	}
+	static constraints = { customers() }
 
- 	def serialize(detail) {
- 		def json = [
- 			'id' : id,
- 			'username' : username,
-			'language' : language,
- 			'currency' : currency,
-			'contact_information' : contactInformation.serialize()
- 		]
+	def serialize(detail) {
+		def json = [
+					'id' : id,
+					'username' : username,
+					'language' : language,
+					'currency' : currency,
+					'contact_information' : contactInformation.serialize()
+				]
 		if(detail) {
 			json.api_key = apiKey
 			json.api_secret = apiSecret
-    	}
-    	json
+		}
+		json
 	}
-
 }
