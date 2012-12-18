@@ -22,6 +22,7 @@ class CustomersApiController {
         try {
             render customersService.create(merchant, request.JSON).serialize() as JSON
         } catch(e) {
+			log.error(e.message,e)
             response.status = 500
             def error = ["error":e.message]
             render error as JSON
