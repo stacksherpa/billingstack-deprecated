@@ -44,7 +44,7 @@ class CustomersService {
             paymentGateway.createAccount([account : instance])
             instance
         } catch (e) {
-            println e.message
+            log.error(e.message,e)
             throw new RuntimeException(e.message)
         }
     }
