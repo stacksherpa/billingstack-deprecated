@@ -19,12 +19,12 @@ class Merchant extends User {
 
 	def serialize(detail) {
 		def json = [
-					'id' : id,
-					'username' : username,
-					'language' : language,
-					'currency' : currency,
-					'contact_information' : contactInformation.serialize()
-				]
+			'id' : id,
+			'username' : username,
+			'language' : language,
+			'currency' : currency,
+			'contact_information' : contactInformation.serialize()
+		]
 		if(detail) {
 			json.api_key = apiKey
 			json.api_secret = apiSecret
