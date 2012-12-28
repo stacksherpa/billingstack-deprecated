@@ -16,7 +16,7 @@
         <param-name>webAppRootKey</param-name>
         <param-value>@grails.project.key@</param-value>
     </context-param>
-
+    
     <filter>
         <filter-name>cors-headers</filter-name>
         <filter-class>com.billingstack.CorsFilter</filter-class>
@@ -49,8 +49,8 @@
             <param-value>true</param-value>
         </init-param>
     </filter>
-
-	<filter-mapping>
+    
+    <filter-mapping>
         <filter-name>cors-headers</filter-name>
         <url-pattern>/*</url-pattern>
     </filter-mapping>
@@ -103,24 +103,5 @@
         <welcome-file>index.jsp</welcome-file>
         <welcome-file>index.gsp</welcome-file>
     </welcome-file-list>
-
-    <jsp-config>
-        <taglib>
-            <taglib-uri>http://java.sun.com/jsp/jstl/core</taglib-uri>
-            <taglib-location>/WEB-INF/tld/c.tld</taglib-location>
-        </taglib>
-        <taglib>
-            <taglib-uri>http://java.sun.com/jsp/jstl/fmt</taglib-uri>
-            <taglib-location>/WEB-INF/tld/fmt.tld</taglib-location>
-        </taglib>
-        <taglib>
-            <taglib-uri>http://www.springframework.org/tags</taglib-uri>
-            <taglib-location>/WEB-INF/tld/spring.tld</taglib-location>
-        </taglib>
-        <taglib>
-            <taglib-uri>http://grails.codehaus.org/tags</taglib-uri>
-            <taglib-location>/WEB-INF/tld/grails.tld</taglib-location>
-        </taglib>
-    </jsp-config>
 
 </web-app>

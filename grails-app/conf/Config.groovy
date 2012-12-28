@@ -87,11 +87,5 @@ log4j = {
            'org.codehaus.groovy.grails.orm.hibernate',      // hibernate integration
            'org.springframework',
            'org.hibernate',
-           'net.sf.ehcache.hibernate',
-           'com.hazelcast'
-	debug  'com.billingstack'
+           'net.sf.ehcache.hibernate'
 }
-
-//grails.plugin.cloudfoundry.username = ''
-//grails.plugin.cloudfoundry.password = ''
-//grails.plugin.cloudfoundry.appname = ''
