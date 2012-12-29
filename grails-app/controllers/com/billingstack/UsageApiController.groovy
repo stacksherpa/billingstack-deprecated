@@ -1,6 +1,6 @@
 package com.billingstack
 
-import org.codehaus.groovy.runtime.TimeCategory
+import groovy.time.TimeCategory
 import java.text.SimpleDateFormat
 
 import grails.converters.JSON
