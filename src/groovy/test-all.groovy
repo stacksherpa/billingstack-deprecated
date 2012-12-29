@@ -10,8 +10,11 @@ client = new RestClient()
 
 def merchants() {
 	println "Merchants ..."
-	def merchant = client.post("/merchants",["username":"merchant", "password":"secret0"])
-	client.put("/merchants/${merchant.id}",["password":"other"])
+	def merchant = client.post("/merchants",[
+		name : "stacksherpa1",
+		user : ["username":"merchant", "password":"secret0"]
+	])
+	//client.put("/merchants/${merchant.id}",["password":"other"])
 	def merchants = client.get("/merchants")
 	client.delete("/merchants/${merchant.id}")
 }
@@ -38,7 +41,10 @@ def plans() {
 
 def customers() {
 	println "Customers ..."
-	def merchant = client.post("/merchants",["username":"merchant", "password":"secret0"])
+	def merchant = client.post("/merchants",[
+		name : "stacksherpa1",
+		user : ["username":"merchant", "password":"secret0"]
+	])
 	def paymentGateway = client.post("/${merchant.id}/payment-gateways", [
 		name : "braintree",
 		title : "Braintree",
@@ -51,8 +57,11 @@ def customers() {
 	    	private_key : "3f1dad64a338342ab7172d48bd8ebca4"
 	    ]
 	])
-	def customer = client.post("/${merchant.id}/customers",["username":"customer", "password":"secret0"])
-	client.put("/${merchant.id}/customers/${customer.id}",["password":"other"])
+	def merchant = client.post("/${merchant.id}/customers",[
+		name : "stacksherpa1",
+		user : ["username":"customer1", "password":"secret0"]
+	])
+	//client.put("/${merchant.id}/customers/${customer.id}",["password":"other"])
 	def plans = client.get("/${merchant.id}/customers")
 	client.delete("/${merchant.id}/customers/${customer.id}")
 	client.delete("/merchants/${merchant.id}")
@@ -138,4 +147,4 @@ def subscriptions() {
 	client.delete("/merchants/${merchant.id}")
 }
 
-subscriptions()
+merchants()

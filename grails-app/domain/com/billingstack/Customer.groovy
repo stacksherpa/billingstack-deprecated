@@ -1,8 +1,10 @@
 package com.billingstack
 
-class Customer extends User {
+class Customer extends BillingEntity {
 
 	Merchant merchant
+
+	String name
 	
 	Set subscriptions
 	
@@ -23,16 +25,11 @@ class Customer extends User {
 		invoices()
   }
 
-  def serialize() {
-  	[
-  		'id' : id,
-  		'merchant' : [
-  			id : merchant.id
-  		],
-  		'username' : username,
-  		'language' : language,
-  		'currency' : currency,
-  		'contact_information' : contactInformation.serialize()
+  def serialize(detail) {
+		def json = [
+			'id' : id,
+			'name' : name,
 		]
-  }
+		json
+	}
 }

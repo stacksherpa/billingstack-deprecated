@@ -1,7 +1,10 @@
 package com.billingstack
 
-class Merchant extends User {
+class Merchant extends BillingEntity {
 
+	String name
+
+	Set users
 	Set products
 	Set customers
 	Set subscriptions
@@ -9,6 +12,7 @@ class Merchant extends User {
 	Set paymentGateways
 
 	static hasMany = [
+		users : User,
 		products : Product,
 		customers : Customer,
 		subscriptions : Subscription,
@@ -20,15 +24,8 @@ class Merchant extends User {
 	def serialize(detail) {
 		def json = [
 			'id' : id,
-			'username' : username,
-			'language' : language,
-			'currency' : currency,
-			'contact_information' : contactInformation.serialize()
+			'name' : name,
 		]
-		if(detail) {
-			json.api_key = apiKey
-			json.api_secret = apiSecret
-		}
 		json
 	}
 }
