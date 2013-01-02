@@ -28,7 +28,7 @@ class BillingService {
 			lines : [],
 			subtotal : 0
 		]
-		billUsage(subscription, invoice, subscription.usages)
+		billUsage(subscription, invoice, Usage.findAllBySubscription(subscription))
 	}
 	
 	def billAccount(Customer customer) {
@@ -48,17 +48,19 @@ class BillingService {
     def billUsage(subscription, invoice, usages) {
     	
     	usages.each { usage ->
-			def item = subscription.plan.products.find { item ->
+			def item = PlanProduct.findAllByPlan(subscription.plan).find { item ->
 				item.product.name == usage.product.name
 			}
 			if(item) {
-				if(item.rules) {
-					item.rules.each { rule ->
+				def rules = PlanProductRule.findAllByProduct(item)
+				if(rules) {
+					rules.each { rule ->
 						if(rule.type == 'fixed') { //fixed
 							usage.price = rule.price
 							usage.total = rule.price * usage.value
 						} else {
-							def range = rule.ranges.find { range ->
+							def ranges = PlanProductRuleRange.findAllByRule(rule)
+							def range = ranges.find { range ->
 								(!range.valueFrom || range.valueFrom <= usage.value) &&
 								(!range.valueTo || usage.value <= range.valueTo)
 							}

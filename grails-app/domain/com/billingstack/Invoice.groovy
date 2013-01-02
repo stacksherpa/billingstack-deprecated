@@ -16,13 +16,16 @@ class Invoice extends BillingEntity {
 	BigDecimal taxTotal
 	BigDecimal total
 
-  static constraints = {
-  	customer()
-  	number(nullable : true)
-  	due(nullable : true)
-  	status(nullable : true)
-  	currency()
-  }
+	static constraints = {
+		customer()
+		number(nullable : true)
+		due(nullable : true)
+		status(nullable : true)
+		currency()
+		taxPercentage(nullable : true)
+		taxTotal(nullable : true)
+		total(nullable : true)
+	}
 
   def serialize() {
     	[
@@ -41,7 +44,7 @@ class Invoice extends BillingEntity {
 			'tax_percentage' : taxPercentage,
 			'tax_total' : taxTotal,
 			'total' : total,
-			'lines' : lines.collect { line ->
+			'lines' : InvoiceLine.findAllByInvoice(this).collect { line ->
 				[
 					'id' : line.id,
 					'description' : line.description,

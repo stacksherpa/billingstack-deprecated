@@ -70,9 +70,10 @@ def customers() {
 def subscriptions() {
 	println "Subscriptions ..."
 	def merchant = client.post("/merchants",[
-		name : "stacksherpa2",
-		user : ["username":"merchant1", "password":"secret0"]
+		name : "stacksherpa7",
+		user : ["username":"merchant7", "password":"secret0"]
 	])
+	println "!!! ${merchant}"
 	
 	def paymentGateway = client.post("/${merchant.id}/payment-gateways", [
 		name : "braintree",
@@ -86,8 +87,15 @@ def subscriptions() {
 	    	private_key : "3f1dad64a338342ab7172d48bd8ebca4"
 	    ]
 	])
+	println "!!! ${paymentGateway}"
+	
 	def instance = client.post("/${merchant.id}/products",["name":"instance:m1.tiny"])
+	
+	println "!!! ${instance}"
 	def storage = client.post("/${merchant.id}/products",["name":"storage"])
+	
+	println "!!! ${storage}"
+	
 	def plan = client.post("/${merchant.id}/plans",[
 		name:"plan",
 		metadata : [
@@ -117,10 +125,16 @@ def subscriptions() {
 			]
 		]
 	])
+	
+	println "!!! ${plan}"
+	
 	def customer = client.post("/${merchant.id}/customers",[
-		name : "customer2",
-		user : ["username":"customer2", "password":"secret0"]
+		name : "customer7",
+		user : ["username":"customer7", "password":"secret0"]
 	])
+	
+	println "!!! ${customer}"
+	
 	def subscription = client.post("/${merchant.id}/customers/${customer.id}/subscriptions",[
 		"plan": [
 			"id" : plan.id
@@ -128,6 +142,9 @@ def subscriptions() {
 		"provider" : "openstack",
 		"resource" : "tenant:1234"
 	])
+	
+	println "!!! ${subscription}"
+	
 	def subscriptions = client.get("/${merchant.id}/customers/${customer.id}/subscriptions")
 	def usages = client.post("/${merchant.id}/usages", [
 		[
@@ -145,6 +162,9 @@ def subscriptions() {
 			measure : "gb"
 		]
 	])
+	
+	println "!!! ${usages}"
+	
 	client.post("/${merchant.id}/bill",[:])
 	println client.get("/${merchant.id}/invoices")
 	/*
@@ -153,7 +173,9 @@ def subscriptions() {
 	client.delete("/${merchant.id}/plans/${plan.id}")
 	client.delete("/${merchant.id}/payment-gateways/${paymentGateway.id}")
 	*/
-	client.delete("/merchants/${merchant.id}")
+	//client.delete("/merchants/${merchant.id}")
+	
+	println "!!! END"
 }
 
 subscriptions()

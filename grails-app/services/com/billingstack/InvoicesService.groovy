@@ -18,16 +18,19 @@ class InvoicesService {
       def invoice = new Invoice()
       invoice.merchant = Merchant.get(merchant)
       invoice.customer = Customer.load(customer)
+      invoice.currency = invoice.merchant.currency
+	  invoice.status = "created"
+	  invoice.taxPercentage = 0.21 //json.tax_percentage
+      invoice.save(flush: true, failOnError : true)
       json.lines.each { line ->
-        invoice.addToLines(line)
+        def invoiceLine = InvoiceLine.newInstance(line)
+		invoiceLine.invoice = invoice
+		invoiceLine.save()
         invoice.subtotal += line.subtotal
       }
-      invoice.currency = invoice.merchant.currency
-      invoice.status = "created"
-      invoice.taxPercentage = 0.21 //json.tax_percentage
       invoice.taxTotal = invoice.taxPercentage * invoice.subtotal
       invoice.total = invoice.subtotal + invoice.taxTotal
-      invoice.save(flush: true, failOnError : true)
+      //invoice.save(flush: true, failOnError : true)
     }
 
     def show(String id) { 
