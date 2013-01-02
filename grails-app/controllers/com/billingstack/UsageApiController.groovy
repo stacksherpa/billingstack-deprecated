@@ -31,6 +31,8 @@ class UsageApiController {
 					usage.subscription = Subscription.findWhere(provider : it.provider, resource : it.resource)
 				}
 				if(usage.subscription) {
+					usage.merchant = usage.subscription.merchant
+					usage.customer = usage.subscription.customer
 					usage.product = Product.findByIdOrName(it.product.id, it.product.name)
 	                usage.value = it.value
 	                usage.measure = it.measure

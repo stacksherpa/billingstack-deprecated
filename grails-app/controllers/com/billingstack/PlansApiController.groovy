@@ -4,6 +4,8 @@ import grails.converters.JSON
 
 class PlansApiController {
 
+    def plansService
+
     def list() {
         try {
 			def query = [:]
@@ -22,49 +24,7 @@ class PlansApiController {
     def create(String merchant) {
         try {
             def json = request.JSON
-            def plan = new Plan(
-                merchant : Merchant.load(merchant),
-                name : json.name,
-                title : json.title,
-                description : json.description
-            )
-			if(json.metadata) {
-                plan.metadata = json.metadata.toString()
-			}
-            if(json.products) {
-                json.products.each { current ->
-                    def product 
-                    if(current.id) {
-                        product = Product.load(current.id)
-                    } else if (current.name) {
-                        product = Product.findWhere(
-                            'merchant.id' : merchant,
-                            name : current.name
-                        )
-                    }
-                    def planProduct = PlanProduct.newInstance('product' : product)
-					if(current.rules) {
-						current.rules.each { rule ->
-				            def planProductRule = new PlanProductRule(type : rule.type)
-				            if(rule.type == 'fixed') {
-				                planProductRule.price = rule.price
-				            } else if(rule.type == 'volume-range') {
-				                rule.ranges.each { range ->
-				                    planProductRule.addToRanges(
-				                        valueFrom : range.from,
-				                        valueTo : range.to,
-				                        price : range.price
-				                    )
-				                }
-				            }
-				            planProduct.addToRules(planProductRule)
-				        }
-					}
-					plan.addToProducts(planProduct)
-                }
-            }
-			plan.save(flush: true, failOnError : true)
-            render plan.serialize() as JSON
+            render plansService.create(merchant, json).serialize() as JSON
 		} catch(e) {
 			log.error(e.message,e)
 			response.status = 500

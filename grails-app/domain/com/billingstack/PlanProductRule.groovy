@@ -2,21 +2,15 @@ package com.billingstack
 
 class PlanProductRule extends BillingEntity {
 
+	Merchant merchant
+
+	Plan plan
+
 	PlanProduct product
 
 	String type
 
 	BigDecimal price
-	
-	List ranges
-
-	static belongsTo = [
-		product : PlanProduct
-	]
-
-	static hasMany = [
-		ranges : PlanProductRuleRange
-	]
 
     static constraints = {
     	product()
@@ -29,7 +23,7 @@ class PlanProductRule extends BillingEntity {
 		if(type == 'fixed') {
 		  json.price = price
 		} else if (type == 'volume-range'){
-		    json.ranges = ranges.collect { range ->
+		    json.ranges = PlanProductRuleRange.findAllByRule(this).collect { range ->
 		      range.serialize()
 		    }
 		}

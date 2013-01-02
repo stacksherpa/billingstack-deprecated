@@ -25,8 +25,7 @@ class ProductsService {
   }
 
   def delete(String id) {
-      def instance = Product.get(id)
-      instance.delete(flush:true)
+      Product.get(id).delete(flush:true)
   }
 
 }

@@ -2,30 +2,14 @@ package com.billingstack
 
 class User extends BillingEntity {
 
-    Merchant merchant
-
-	String username
-	String password
+    String username
+    String password
 
     String language
     String currency = "USD"
 
-	String apiKey
-	String apiSecret
-
-    ContactInformation contactInformation = new ContactInformation()
-
-    static belongsTo = [
-        merchant : Merchant
-    ]
-
-    static hasOne = [
-        contactInformation : ContactInformation
-    ]
-
-    static hasMany = [
-        userRoles : UserRole
-    ]
+    String apiKey
+    String apiSecret
 
     static constraints = {
     	username(unique : true)
@@ -37,7 +21,6 @@ class User extends BillingEntity {
     	apiKey(nullable : true)
     	apiSecret(nullable : true)
 
-        contactInformation()
     }
 
     def serialize(detail) {
@@ -46,7 +29,7 @@ class User extends BillingEntity {
             'username' : username,
             'language' : language,
             'currency' : currency,
-            'contact_information' : contactInformation.serialize()
+            'contact_information' : ContactInfomation.findByUser(this).serialize()
         ]
         if(detail) {
             json.api_key = apiKey

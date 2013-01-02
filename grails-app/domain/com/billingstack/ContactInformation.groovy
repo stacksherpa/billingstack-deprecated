@@ -4,6 +4,8 @@ import grails.converters.JSON
 
 class ContactInformation extends BillingEntity {
 
+	User user
+
 	String email
 	String firstName
 	String lastName
@@ -16,10 +18,6 @@ class ContactInformation extends BillingEntity {
 	String state
 	String zip
 	String country
-
-	static belongsTo = [
-		user : User
-	]
 
 	static constraints = {
 		email(nullable : true)

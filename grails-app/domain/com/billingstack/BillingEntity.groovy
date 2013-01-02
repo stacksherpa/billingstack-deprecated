@@ -2,12 +2,12 @@ package com.billingstack
 
 abstract class BillingEntity {
 
-	String id
+    String id
 
-	Date dateCreated
-	Date lastUpdated
+    Date dateCreated
+    Date lastUpdated
 
-	Boolean deleted = Boolean.FALSE
+    Boolean deleted = Boolean.FALSE
 
     static constraints = {
     	id()
@@ -20,4 +20,5 @@ abstract class BillingEntity {
     	id generator : "uuid", type : "string"
         tablePerHierarchy false
     }
+    
 }

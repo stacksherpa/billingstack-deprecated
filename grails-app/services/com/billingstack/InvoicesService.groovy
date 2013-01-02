@@ -38,9 +38,9 @@ class InvoicesService {
     	Invoice.get(id)
     }
 
-    def delete(String id) { 
-    	def instance = Invoice.get(id)
-      instance.delete(flush : true)
+    def delete(String id) {
+      InvoiceLine.executeUpdate "DELETE FROM InvoiceLine WHERE invoice.id = :id", [id: id]
+    	Invoice.get(id).delete(flush : true)
     }
 
 }

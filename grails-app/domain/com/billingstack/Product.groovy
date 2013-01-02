@@ -13,10 +13,6 @@ class Product extends BillingEntity {
 	String description
 	
 	BigDecimal price
-	
-	static belongsTo = [
-		merchant : Merchant
-	]
 
 	static constraints = {
 		merchant(unique : 'name')

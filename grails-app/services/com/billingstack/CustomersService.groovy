@@ -20,17 +20,16 @@ class CustomersService {
 
     def create(String merchant, json) {
         try {
+            def merchantRef = Merchant.load(merchant)
             def customer = new Customer(
-                merchant : Merchant.load(merchant),
+                merchant : merchantRef,
                 name : json.name
             ).save(flush : true, failOnError : true)
             UserRole.newInstance(
-                user : usersService.create(
-                    merchant, 
-                    json.user
-                ),
+                user : usersService.create(json.user),
+                merchant : merchantRef,
+                customer : customer,
                 role : Role.findByName("CUSTOMER_ADMIN"),
-                customer : customer
             ).save(failOnError: true)
 			//def paymentGateway = paymentGatewaysService.load(merchant)
             //paymentGateway.createAccount([account : instance])
@@ -52,8 +51,12 @@ class CustomersService {
     }
 
     def delete(String id) {
-        def instance = Customer.load(id)
-        instance.delete(flush : true)
+      UserRole.executeUpdate "DELETE FROM UserRole WHERE customer.id = :id", [id: id]
+      InvoiceLine.executeUpdate "DELETE FROM InvoiceLine WHERE customer.id = :id", [id: id]
+      Invoice.executeUpdate "DELETE FROM Invoice WHERE customer.id = :id", [id: id]
+      Usage.executeUpdate "DELETE FROM Usage WHERE customer.id = :id", [id: id]
+      Subscription.executeUpdate "DELETE FROM Subscription WHERE customer.id = :id", [id: id]
+      Customer.load(id).delete(flush : true)
     }
     
 }

@@ -2,16 +2,13 @@ package com.billingstack
 
 class UserRole {
 
-		User user
-
-		Role role
+		Merchant merchant
 
 		Customer customer
 
-		static belongsTo = [
-			user : User,
-			role : Role
-		]
+		User user
+
+		Role role
 
     static constraints = {
     	customer(nullable : true)

@@ -2,7 +2,12 @@ package com.billingstack
 
 class Usage {
 
+	Merchant merchant
+
+	Customer customer
+
 	Subscription subscription
+
 	Product product
 	
 	BigDecimal value
@@ -14,10 +19,6 @@ class Usage {
 
 	Date startTimestamp
 	Date endTimestamp
-	
-	static belongsTo = [
-		subscription : Subscription
-	]
 
 	static constraints = {
 		subscription()

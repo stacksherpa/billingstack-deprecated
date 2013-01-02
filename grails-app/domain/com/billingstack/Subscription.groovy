@@ -16,18 +16,6 @@ class Subscription extends BillingEntity {
 	
 	String provider
 	String resource
-	
-	Set usages = [] as Set
-	
-	static belongsTo = [
-		merchant : Merchant,
-		customer : Customer,
-		plan : Plan
-	]
-	
-	static hasMany = [
-		usages : Usage
-	]
 
 	static constraints = {
 		paymentMethod nullable : true

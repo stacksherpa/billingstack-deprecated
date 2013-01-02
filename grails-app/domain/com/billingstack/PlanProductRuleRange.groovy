@@ -2,16 +2,16 @@ package com.billingstack
 
 class PlanProductRuleRange extends BillingEntity {
 
+  Merchant merchant
+
+  Plan plan
+
 	PlanProductRule rule
 
 	BigDecimal valueFrom
 	BigDecimal valueTo
 
 	BigDecimal price
-
-	static belongsTo = [
-		rule : PlanProductRule
-	]
 
   static constraints = {
   	rule()

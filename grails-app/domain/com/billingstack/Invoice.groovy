@@ -11,31 +11,20 @@ class Invoice extends BillingEntity {
 	String status
 	String currency = "EUR"
 
-	List<InvoiceLine> lines
-
 	BigDecimal subtotal = 0
 	BigDecimal taxPercentage
 	BigDecimal taxTotal
 	BigDecimal total
 
-	static belongsTo = [
-		merchant : Merchant,
-		customer : Customer
-	]
+  static constraints = {
+  	customer()
+  	number(nullable : true)
+  	due(nullable : true)
+  	status(nullable : true)
+  	currency()
+  }
 
-	static hasMany = [
-		lines : InvoiceLine
-	]
-
-    static constraints = {
-    	customer()
-    	number(nullable : true)
-    	due(nullable : true)
-    	status(nullable : true)
-    	currency()
-    }
-
-    def serialize() {
+  def serialize() {
     	[
 			'id' : id,
 			'merchant' : [
@@ -62,5 +51,5 @@ class Invoice extends BillingEntity {
 				]
 			}
 		]
-    }
+  }
 }

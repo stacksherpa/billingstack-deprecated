@@ -16,10 +16,6 @@ class PaymentGateway extends BillingEntity {
 	
 	String metadata
 
-	static belongsTo = [
-		merchant : Merchant
-	]
-
 	static constraints = {
 		title(nullable : true)
 		description(nullable : true)

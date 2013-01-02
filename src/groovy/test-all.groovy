@@ -57,19 +57,23 @@ def customers() {
 	    	private_key : "3f1dad64a338342ab7172d48bd8ebca4"
 	    ]
 	])
-	def merchant = client.post("/${merchant.id}/customers",[
+	def customer = client.post("/${merchant.id}/customers",[
 		name : "stacksherpa1",
 		user : ["username":"customer1", "password":"secret0"]
 	])
 	//client.put("/${merchant.id}/customers/${customer.id}",["password":"other"])
-	def plans = client.get("/${merchant.id}/customers")
+	//def plans = client.get("/${merchant.id}/customers")
 	client.delete("/${merchant.id}/customers/${customer.id}")
 	client.delete("/merchants/${merchant.id}")
 }
 
 def subscriptions() {
 	println "Subscriptions ..."
-	def merchant = client.post("/merchants",["username":"merchant1", "password":"secret0"])
+	def merchant = client.post("/merchants",[
+		name : "stacksherpa2",
+		user : ["username":"merchant1", "password":"secret0"]
+	])
+	
 	def paymentGateway = client.post("/${merchant.id}/payment-gateways", [
 		name : "braintree",
 		title : "Braintree",
@@ -113,7 +117,10 @@ def subscriptions() {
 			]
 		]
 	])
-	def customer = client.post("/${merchant.id}/customers",["username":"customer1", "password":"secret0"])
+	def customer = client.post("/${merchant.id}/customers",[
+		name : "customer2",
+		user : ["username":"customer2", "password":"secret0"]
+	])
 	def subscription = client.post("/${merchant.id}/customers/${customer.id}/subscriptions",[
 		"plan": [
 			"id" : plan.id
@@ -140,11 +147,13 @@ def subscriptions() {
 	])
 	client.post("/${merchant.id}/bill",[:])
 	println client.get("/${merchant.id}/invoices")
+	/*
 	client.delete("/${merchant.id}/customers/${customer.id}/subscriptions/${subscription.id}")
 	client.delete("/${merchant.id}/customers/${customer.id}")
 	client.delete("/${merchant.id}/plans/${plan.id}")
 	client.delete("/${merchant.id}/payment-gateways/${paymentGateway.id}")
+	*/
 	client.delete("/merchants/${merchant.id}")
 }
 
-merchants()
+subscriptions()

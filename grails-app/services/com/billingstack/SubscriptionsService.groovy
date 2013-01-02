@@ -47,8 +47,7 @@ class SubscriptionsService {
     }
 
     def delete(String id) {
-      def instance = Subscription.load(id)
-      //Usage.executeUpdate("delete Usage u where u in (select u from Usage as u where u.subscription = :id)", [id: id])
-      instance.delete(flush : true)
+      Usage.executeUpdate "DELETE FROM Usage WHERE subscription.id = :id", [id: id]
+      Subscription.load(id).delete(flush : true)
     }
 }
