@@ -7,4 +7,11 @@ class Role {
     static constraints = {
     	name(unique : true)
     }
+
+    def serialize() {
+			[
+				'id' : id,
+				'name' : name,
+			]
+		}
 }

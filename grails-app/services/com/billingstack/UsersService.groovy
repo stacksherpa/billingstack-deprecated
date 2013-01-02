@@ -10,7 +10,6 @@ class UsersService {
     user.username = json.username
     user.password = json.password
     user.language = json.language
-    user.currency = json.currency ?: "USD"
     user.apiKey = (UUID.randomUUID() as String).replaceAll('-','').substring(10)
     user.apiSecret = (UUID.randomUUID() as String).replaceAll('-','').substring(6)
     user.save()

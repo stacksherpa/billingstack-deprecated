@@ -20,10 +20,12 @@ class CustomersService {
 
     def create(String merchant, json) {
         try {
-            def merchantRef = Merchant.load(merchant)
+            def merchantRef = Merchant.get(merchant)
             def customer = new Customer(
                 merchant : merchantRef,
-                name : json.name
+                name : json.name,
+                currency : json.currency ?: merchantRef.currency,
+                language : json.language ?: merchantRef.language
             ).save(flush : true, failOnError : true)
             UserRole.newInstance(
                 user : usersService.create(json.user),

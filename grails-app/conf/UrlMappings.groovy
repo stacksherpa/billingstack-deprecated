@@ -7,12 +7,27 @@ class UrlMappings {
 		"/merchants"(controller : "merchantsApi"){
 			action = [GET : "list", POST : "create"]
 		}
+		"/users"(controller : "usersApi") {
+			action = [GET : "list"]
+		}
+		"/roles"(controller : "rolesApi") {
+			action = [GET : "list"]
+		}
 		"/merchants/$id"(controller : "merchantsApi"){
 			action = [GET : "show", DELETE : "delete", PUT : "update"]
 		}
 		"/$merchant"(controller : "billingStackApi"){
 			action = [GET : "info"]
 			constraints { merchant(notEqual: 'dbconsole') }
+		}
+		"/$merchant/users"(controller : "usersApi"){
+			action = [GET : "list"]
+		}
+		"/$merchant/users/$id"(controller : "usersApi"){
+			action = [GET : "show"]
+		}
+		"/$merchant/users/$user/roles/$id"(controller : "userRolesApi"){
+			action = [PUT : "create", DELETE : "delete"]
 		}
 		"/$merchant/payment-gateways"(controller : "paymentGatewaysApi"){
 			action = [GET : "list", POST : "create"]

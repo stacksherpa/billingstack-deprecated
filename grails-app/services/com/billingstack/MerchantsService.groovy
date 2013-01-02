@@ -10,7 +10,9 @@ class MerchantsService {
 
   def create(json) {
     def merchant = Merchant.newInstance(
-      name : json.name
+      name : json.name,
+      currency : json.currency ?: "USD",
+      language : json.language ?: "EN"
     ).save(flush : true, failOnError: true)
     UserRole.newInstance(
       user : usersService.create(json.user),

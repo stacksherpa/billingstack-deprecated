@@ -4,6 +4,9 @@ class Merchant extends BillingEntity {
 
 	String name
 
+	String language = "EN"
+  String currency = "USD"
+
 	static constraints = {
 
 	}
@@ -12,6 +15,8 @@ class Merchant extends BillingEntity {
 		def json = [
 			'id' : id,
 			'name' : name,
+			'language' : language,
+			'currency' : currency
 		]
 		json
 	}

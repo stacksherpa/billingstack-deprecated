@@ -6,7 +6,6 @@ class User extends BillingEntity {
     String password
 
     String language
-    String currency = "USD"
 
     String apiKey
     String apiSecret
@@ -16,7 +15,6 @@ class User extends BillingEntity {
     	password(nullable : true)
 
         language(nullable : true)
-        currency()
 
     	apiKey(nullable : true)
     	apiSecret(nullable : true)
@@ -28,8 +26,7 @@ class User extends BillingEntity {
             'id' : id,
             'username' : username,
             'language' : language,
-            'currency' : currency,
-            'contact_information' : ContactInfomation.findByUser(this).serialize()
+            'contact_information' : ContactInformation.findByUser(this).serialize()
         ]
         if(detail) {
             json.api_key = apiKey
