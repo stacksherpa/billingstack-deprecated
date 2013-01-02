@@ -4,7 +4,7 @@ import grails.converters.JSON
 
 class UserRolesApiController {
 
-    def create(String merchant, String customer, String user, String id) { 
+    def create(String merchant, String customer, String user, Long id) { 
     	def ur = UserRole.newInstance(
     		merchant : Merchant.load(merchant),
     		user : User.load(user),
@@ -16,13 +16,16 @@ class UserRolesApiController {
 			render ur.save() as JSON
     }
 
-    def delete(String merchant, String customer, String user, String id) { 
-    	UserRole.where {
-    		owner.merchant.id == merchant
-    		owner.customer.id == customer
-    		owner.user.id == user
-    		owner.role.id == id
-    	}.deleteAll()
+    def delete(String merchant, String customer, String user, Long id) {
+    	def query = [
+    		'merchant.id' : merchant,
+    		'user.id' : user,
+    		'role.id' : id
+    	]
+    	if(customer) {
+    		query['customer.id'] = customer
+    	}
+    	UserRole.findWhere(query).delete(flush : true)
     	render(status : 204)
     }
 
