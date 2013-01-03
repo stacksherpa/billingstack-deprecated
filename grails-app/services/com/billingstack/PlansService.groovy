@@ -3,18 +3,18 @@ package com.billingstack
 class PlansService {
 
     def create(String merchant, json) {
-    	def merchantRef = Merchant.load(merchant)
-    	def plan = new Plan(
-        merchant : merchantRef,
-        name : json.name,
-        title : json.title,
-        description : json.description
-      )
-			if(json.metadata) {
-      	plan.metadata = json.metadata.toString()
-			}
-			plan.save()
-      if(json.products) {
+		def merchantRef = Merchant.load(merchant)
+		def plan = new Plan(
+			merchant : merchantRef,
+			name : json.name,
+			title : json.title,
+			description : json.description
+		)
+		if(json.metadata) {
+			plan.metadata = json.metadata.toString()
+		}
+		plan.save(failOnError : true)
+		if(json.products) {
 	      json.products.each { current ->
 	        def product 
 	        if(current.id) {

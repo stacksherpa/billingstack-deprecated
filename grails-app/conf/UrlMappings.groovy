@@ -26,6 +26,9 @@ class UrlMappings {
 		"/$merchant/users/$id"(controller : "usersApi"){
 			action = [GET : "show"]
 		}
+		"/$merchant/users/$user/roles"(controller : "userRolesApi"){
+			action = [GET : "list"]
+		}
 		"/$merchant/users/$user/roles/$id"(controller : "userRolesApi"){
 			action = [PUT : "create", DELETE : "delete"]
 		}

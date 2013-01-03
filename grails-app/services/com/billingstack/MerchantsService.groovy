@@ -14,12 +14,17 @@ class MerchantsService {
       currency : json.currency ?: "USD",
       language : json.language ?: "EN"
     ).save(flush : true, failOnError: true)
-    UserRole.newInstance(
+    def userRole = UserRole.newInstance(
       user : usersService.create(json.user),
       merchant : merchant,
       role : Role.findByName("MERCHANT_ADMIN")
     ).save(failOnError: true)
-    merchant
+	def result = [
+		merchant : merchant.serialize(),
+		user : userRole.user.serialize()
+	]
+	result.user.roles = ["MERCHANT_ADMIN"]
+	result
   }
 
   def show(String id) {

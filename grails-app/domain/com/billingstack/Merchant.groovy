@@ -5,13 +5,13 @@ class Merchant extends BillingEntity {
 	String name
 
 	String language = "EN"
-  String currency = "USD"
+	String currency = "USD"
 
 	static constraints = {
 
 	}
 
-	def serialize(detail) {
+	def serialize() {
 		def json = [
 			'id' : id,
 			'name' : name,

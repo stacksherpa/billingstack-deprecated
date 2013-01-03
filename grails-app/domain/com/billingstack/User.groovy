@@ -26,8 +26,12 @@ class User extends BillingEntity {
             'id' : id,
             'username' : username,
             'language' : language,
-            'contact_information' : ContactInformation.findByUser(this).serialize()
+            
         ]
+		def contactInformation = ContactInformation.findByUser(this)
+		if(contactInformation) {
+			json.contact_information = contactInformation.serialize()
+		}
         if(detail) {
             json.api_key = apiKey
             json.api_secret = apiSecret

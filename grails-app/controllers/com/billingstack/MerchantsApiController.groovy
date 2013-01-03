@@ -20,7 +20,7 @@ class MerchantsApiController {
 
   def create() {
     try {
-		render merchantsService.create(request.JSON).serialize(true) as JSON
+		render merchantsService.create(request.JSON) as JSON
     } catch(e) {
 		log.error(e.message,e)
 		response.status = 500
@@ -32,7 +32,14 @@ class MerchantsApiController {
 
   def show(String id) {
     try {
-        render merchantsService.get(id).serialize() as JSON
+        def merchant = merchantsService.show(id)
+		if(merchant) {
+			render merchant.serialize() as JSON
+		} else {
+			response.status = 404
+			def error = ["error":"Merchant not found"]
+			render error as JSON
+		}
 	} catch(e) {
 		log.error(e.message,e)
 		response.status = 500
