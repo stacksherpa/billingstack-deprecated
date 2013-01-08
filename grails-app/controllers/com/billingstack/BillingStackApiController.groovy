@@ -11,18 +11,26 @@ class BillingStackApiController {
 	def authenticate() {
 		try {
 			def json = request.JSON
-			def merchant
+			def user
 			if(json.api_key && json.api_secret) {
-				merchant = User.findByApiKeyAndApiSecret(json.api_key, json.api_secret)
+				user = User.findByApiKeyAndApiSecret(json.api_key, json.api_secret)
 			} else if (json.username && json.password) {
-				merchant = User.findByUsernameAndPassword(json.username, json.password)
+				user = User.findByUsernameAndPassword(json.username, json.password)
 			}
-			if(merchant) {
-				def token = [id : (UUID.randomUUID() as String).replaceAll('-',""), endpoint : createLink(params : [merchant : merchant.id], absolute : true) as String]
+			if(user) {
+				def ur = UserRole.where {
+					('merchant.name' == 'woorea' && 'user' == user)
+					
+				}.find()
+				def token = [
+					id : (UUID.randomUUID() as String).replaceAll('-',""), 
+					endpoint : createLink(params : [merchant : ur.merchant.id], absolute : true) as String,
+				]
 				def tokens = hazelcastService.map("tokens")
 				tokens.put(token.id, token)
 				render(text: token as JSON, contentType: 'application/json', encoding:"UTF-8")
 			} else {
+				println "!!!! 403"
 				response.status = 403
 				def error = ["error":"Merchant not found"]
 				render(text: error as JSON, contentType: 'application/json', encoding:"UTF-8")

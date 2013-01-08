@@ -7,23 +7,21 @@ class TransactionsApiController {
     def transactionsService
 
     def list() {
-        transactionsService.findAllWhere(query) as JSON
+        render transactionsService.list(params) as JSON
     }
 
     def create(String merchant, String customer) {
     	render transactionsService.create(
-            session.paymentGateway.provider,
-            session.paymentGateway.metadata,
-            account,
+            merchant,
+            customer,
             request.JSON
         ) as JSON
     }
 
     def show(String merchant, String customer, String id) { 
     	render transactionsService.showTransaction(
-            session.paymentGateway.provider,
-            session.paymentGateway.metadata,
-            account,
+            merchant,
+            customer,
             request.JSON
         ) as JSON
     }

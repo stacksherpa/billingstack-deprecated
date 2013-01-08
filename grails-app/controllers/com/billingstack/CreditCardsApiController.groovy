@@ -24,7 +24,7 @@ class CreditCardsApiController {
     }
 
     def create(String merchant, String customer) {
-        def result = paymentGatewaysService.load(merchant).createCreditCard(customer, json)
+        def result = paymentGatewaysService.load(merchant).createCreditCard(customer, request.JSON)
         render result as JSON
     }
 

@@ -47,6 +47,18 @@ class UrlMappings {
 		"/$merchant/customers/$id"(controller : "customersApi"){
 			action = [GET : "show", DELETE : "delete", PUT : "update"]
 		}
+		"/$merchant/customers/$customer/users"(controller : "usersApi"){
+			action = [POST : "create", GET : "list"]
+		}
+		"/$merchant/customers/$customer/users/$id"(controller : "usersApi"){
+			action = [GET : "show"]
+		}
+		"/$merchant/customers/$customer/users/$user/roles"(controller : "userRolesApi"){
+			action = [GET : "list"]
+		}
+		"/$merchant/customers/$customer/users/$user/roles/$id"(controller : "userRolesApi"){
+			action = [PUT : "create", DELETE : "delete"]
+		}
 		"/$merchant/customers/$customer/credit-cards"(controller : "creditCardsApi"){
 			action = [GET : "list", POST : "create"]
 		}

@@ -33,8 +33,8 @@ class CustomersService {
                 customer : customer,
                 role : Role.findByName("CUSTOMER_ADMIN"),
             ).save(failOnError: true)
-			//def paymentGateway = paymentGatewaysService.load(merchant)
-            //paymentGateway.createAccount([account : instance])
+						def paymentGateway = paymentGatewaysService.load(merchant)
+            paymentGateway.createAccount([account : customer])
             customer
         } catch (e) {
             log.error(e.message,e)

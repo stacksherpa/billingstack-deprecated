@@ -21,11 +21,11 @@ class ProductsApiController {
     }
 
     def show(String merchant, String id) {
-        render productsService.show(id) as JSON
+        render productsService.show(id).serialize() as JSON
     }
 
     def update(String merchant, String id) { 
-        render productsService.update(id, request.JSON) as JSON       
+        render productsService.update(id, request.JSON).serialize() as JSON       
     }
 
     def delete(String id) {

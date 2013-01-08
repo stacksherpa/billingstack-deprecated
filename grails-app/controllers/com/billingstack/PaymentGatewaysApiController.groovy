@@ -42,15 +42,15 @@ class PaymentGatewaysApiController {
   	render PaymentGateway.get(id).serialize() as JSON
   }
 
-  def update(String merchant, String extension, String id) { 
-	def configuration = PaymentGateway.get(id)
-	def json = request.JSON
-	configuration.title = json.title
-	configuration.description = json.description
-	configuration.isDefault = json.is_default
-	configuration.metadata = json.metadata.toString()
-	configuration.save(flush : true)
-	render configuration.serialize() as JSON
+  def update(String merchant, String id) {
+		def configuration = PaymentGateway.get(id)
+		def json = request.JSON
+		configuration.title = json.title
+		configuration.description = json.description
+		configuration.isDefault = json.is_default
+		configuration.metadata = json.metadata.toString()
+		configuration.save(flush : true)
+		render configuration.serialize() as JSON
   }
 
   def delete(String merchant, String id) {

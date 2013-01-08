@@ -32,6 +32,7 @@ class Braintree {
   }
 
   def createCreditCard(account, data) {
+		println data
   	CreditCardRequest request = new CreditCardRequest()
 	    .customerId(account as String)
 	    .number(data.number)
@@ -45,6 +46,8 @@ class Braintree {
   	def customer = gateway.customer().find(data.customer.id);
 		customer.creditCards.collect {
 			[
+				id : it.token,
+				type : it.cardType,
 				number : it.maskedNumber,
 				expiration : it.expirationDate
 			]

@@ -20,8 +20,10 @@ class ProductsService {
       Product.get(id)
   }
 
-  def update(id, json) { 
-      Product.get(id)        
+  def update(id, json) {
+		def product = Product.get(id)
+  	product.properties = json
+  	product
   }
 
   def delete(String id) {
