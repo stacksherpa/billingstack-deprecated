@@ -2,6 +2,8 @@ package com.billingstack
 
 class PlanProductRuleRange extends BillingEntity {
 
+	Merchant merchant
+	Plan plan
 	PlanProductRule rule
 	BigDecimal valueFrom
 	BigDecimal valueTo
@@ -12,14 +14,6 @@ class PlanProductRuleRange extends BillingEntity {
 		valueFrom nullable : true
 		valueTo nullable : true
 		price()
-	}
-
-	public Merchant getMerchant(){
-		return rule.getMerchant()
-	}
-	
-	public Plan getPlan() {
-		return rule.getPlan()
 	}
 
 	def serialize() {

@@ -23,8 +23,7 @@ class PlansApiController {
 
     def create(String merchant) {
       try {
-        def json = request.JSON
-        render plansService.create(merchant, json).serialize() as JSON
+        render plansService.create(merchant, request.JSON).serialize() as JSON
       } catch(e) {
         log.error(e.message,e)
         response.status = 500
@@ -48,7 +47,7 @@ class PlansApiController {
 
     def update(String merchant, String id) { 
         try {
-            render Plan.get(id).serialize() as JSON
+            render plansService.update(merchant, id, request.JSON).serialize() as JSON
         } catch(e) {
             response.status = 500
             def error = ["error":e.message]

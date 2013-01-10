@@ -1,8 +1,8 @@
 package com.billingstack
 
-import org.apache.commons.lang.builder.HashCodeBuilder
-
 class PlanProduct implements Serializable {
+	
+	Merchant merchant
 	Plan plan
 	Product product
 
@@ -13,10 +13,6 @@ class PlanProduct implements Serializable {
 
 	def findAllRules() {
 		PlanProductRule.findAllByProduct(this)
-	}
-
-	public Merchant getMerchant() { 
-		plan.getMerchant()
 	}
 	
 	static mapping = {

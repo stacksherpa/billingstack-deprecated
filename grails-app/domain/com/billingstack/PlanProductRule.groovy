@@ -2,6 +2,8 @@ package com.billingstack
 
 class PlanProductRule extends BillingEntity {
 
+	Merchant merchant
+	Plan plan
 	PlanProduct product
 	String type
 	BigDecimal price
@@ -11,14 +13,6 @@ class PlanProductRule extends BillingEntity {
     	type()
     	price(nullable : true)
     }
-
-	public Merchant getMerchant(){
-		return product.getMerchant()
-	}
-	
-	public Plan getPlan() {
-		return product.getPlan()
-	}
 	
 	def findAllRuleRanges() {
 		PlanProductRuleRange?.findAllByRule(this)
