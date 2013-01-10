@@ -3,8 +3,8 @@ package com.billingstack
 import grails.converters.JSON
 
 class UsersApiController {
-	
-	def usersService
+  
+  def usersService
   
   def create() {
       try {
@@ -44,10 +44,9 @@ class UsersApiController {
         }
         def roles = UserRole.findAllWhere(query).collect { it.role.serialize() }
         if(roles) {
-          render ([
-            user : user,
-            roles : roles
-          ]) as JSON
+          def result = user.serialize()
+          result.roles = roles
+          render result as JSON
         } else {
           response.status = 404
           def error = ["error":"User not found"]
