@@ -92,6 +92,9 @@ class UrlMappings {
 		"/$merchant/subscriptions"(controller : "subscriptionsApi"){
 			action = [GET : "list", POST : "create"]
 		}
+		"/$merchant/subscriptions/$id"(controller : "subscriptionsApi"){
+			action = [GET : "show", DELETE : "delete", PUT : "update"]
+		}
 		"/$merchant/invoices"(controller : "invoicesApi"){
 			action = [GET : "list"]
 		}
