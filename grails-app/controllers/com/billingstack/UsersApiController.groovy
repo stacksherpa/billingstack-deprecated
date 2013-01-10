@@ -23,7 +23,9 @@ class UsersApiController {
       def query = ['merchant.id':merchant]
       if(customer) {
         query['customer.id'] = customer
-      }
+      } else {
+				query['customer'] = null
+			}
       render UserRole.findAllWhere(query).collect { it.user.serialize() } as JSON
     } catch(e) {
       log.error(e.message, e)

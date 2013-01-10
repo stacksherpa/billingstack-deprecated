@@ -10,6 +10,8 @@ class Plan extends BillingEntity {
 	String title
 	String description
 	
+	String provider
+	
 	String metadata
 	
 	Date dateCreated
@@ -19,6 +21,7 @@ class Plan extends BillingEntity {
 		merchant(unique : 'name')
 		title nullable : true
 		description nullable : true
+		provider nullable : true
 		metadata nullable : true
   }
 
@@ -32,6 +35,7 @@ class Plan extends BillingEntity {
         'name' : name,
         'title' : title,
         'description' : description,
+				'provider' : provider,
         'products' : PlanProduct.findAllByPlan(this).collect { it.serialize() },
         'metadata' : metadata ? JSON.parse(metadata) : [:]
     ]

@@ -29,12 +29,11 @@ class SubscriptionsService {
                 instance.paymentMethod = paymentGateway.createCreditCard(customer, json.credit_card).target.token
             }
         }
-	    instance.merchant = Merchant.load(merchant)
+	    	instance.merchant = Merchant.load(merchant)
         instance.customer = Customer.load(customer)
         instance.plan = Plan.load(json.plan.id)
         instance.billingDay = new Date().date
-		instance.provider = json.provider
-		instance.resource = json.resource
+				instance.resource = json.resource
         instance.save(flush : true, failOnError : true)
     }
 

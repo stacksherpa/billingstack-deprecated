@@ -14,13 +14,11 @@ class Subscription extends BillingEntity {
 
 	Integer billingDay
 	
-	String provider
 	String resource
 
 	static constraints = {
 		paymentMethod nullable : true
 		billingDay nullable : true
-		provider nullable : true
 		resource nullable : true
 	}
 
@@ -34,7 +32,6 @@ class Subscription extends BillingEntity {
 				'id' : plan.id
 			],
 			'billing_day' : billingDay,
-			'provider' : provider,
 			'resource' : resource
 		]
 	}

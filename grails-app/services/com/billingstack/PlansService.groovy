@@ -8,7 +8,8 @@ class PlansService {
 			merchant : merchantRef,
 			name : json.name,
 			title : json.title,
-			description : json.description
+			description : json.description,
+			provider : json.provider
 		)
 		if(json.metadata) {
 			plan.metadata = json.metadata.toString()

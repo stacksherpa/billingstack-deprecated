@@ -8,10 +8,10 @@ class PlansApiController {
 
     def list() {
         try {
-			def query = [:]
-	        if(params.merchant) {
-	            query['merchant.id'] = params.merchant
-	        }
+      def query = [:]
+          if(params.merchant) {
+              query['merchant.id'] = params.merchant
+          }
             render Plan.findAllWhere(query).collect { it.serialize() } as JSON
         } catch(e) {
             response.status = 500
@@ -22,16 +22,16 @@ class PlansApiController {
     }
 
     def create(String merchant) {
-        try {
-            def json = request.JSON
-            render plansService.create(merchant, json).serialize() as JSON
-		} catch(e) {
-			log.error(e.message,e)
-			response.status = 500
-			def error = ["error":e.message]
-			render error as JSON
-			return
-		}  
+      try {
+        def json = request.JSON
+        render plansService.create(merchant, json).serialize() as JSON
+      } catch(e) {
+        log.error(e.message,e)
+        response.status = 500
+        def error = ["error":e.message]
+        render error as JSON
+        return
+      }  
     }
 
     def show(String merchant, String id) {
@@ -43,7 +43,7 @@ class PlansApiController {
             render error as JSON
             return
         }
-    	
+      
     }
 
     def update(String merchant, String id) { 
@@ -55,7 +55,7 @@ class PlansApiController {
             render error as JSON
             return
         }
-    	
+      
     }
 
     def delete(String merchant, String id) {
