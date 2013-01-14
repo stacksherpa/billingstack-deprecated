@@ -31,7 +31,6 @@ class BillingStackApiController {
 				tokens.put(token.id, token)
 				render(text: token as JSON, contentType: 'application/json', encoding:"UTF-8")
 			} else {
-				println "!!!! 403"
 				response.status = 403
 				def error = ["error":"Merchant not found"]
 				render(text: error as JSON, contentType: 'application/json', encoding:"UTF-8")
