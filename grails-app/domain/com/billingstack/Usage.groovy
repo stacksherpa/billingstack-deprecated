@@ -29,6 +29,10 @@ class Usage {
 		startTimestamp(nullable : true)
 		endTimestamp(nullable : true)
 	}
+	
+	static mapping = {
+		table "usages"
+	}
 
 	def serialize() {
 		[
