@@ -1,8 +1,12 @@
 package com.billingstack
 
 class MerchantsService {
+	
+	def grailsApplication
 
   def usersService
+
+	def productsService
 
   def list(filters) { 
   	Merchant.list(filters)
@@ -19,12 +23,40 @@ class MerchantsService {
       merchant : merchant,
       role : Role.findByName("MERCHANT_ADMIN")
     ).save(failOnError: true)
-	def result = [
-		merchant : merchant.serialize(),
-		user : userRole.user.serialize()
-	]
-	result.user.roles = ["MERCHANT_ADMIN"]
-	result
+		//this should be part of a plugin in a near future
+		if(grailsApplication.config.billingstack.load_ceilometer_products) {
+      [
+        [name : "instance", type : "gauge", measure : "unit", resource : "instance_id", description : "Duration of instance"],
+        [name : "memory", type : "gauge", measure : "mb", resource : "instance_id", description : "Volume of RAM in MB"],
+        [name : "vcpus", type : "gauge", measure : "vcpu", resource : "instance_id", description : "Number of VCPUs"],
+        [name : "root_disk_size", type : "gauge", measure : "gb", resource : "instance_id", description : "Size of root disk in GB"],
+        [name : "ephemeral_disk_size", type : "gauge", measure : "gb", resource : "instance_id", description : "Size of ephemeral disk in GB"],
+        [name : "disk.read.requests", type : "cumulative", measure : "unit", resource : "instance_id", description : "Number of disk read requests"],
+        [name : "disk.read.bytes", type : "cumulative", measure : "bytes", resource : "instance_id", description : "Volume of disk read in bytes"],
+        [name : "disk.write.requests", type : "cumulative", measure : "unit", resource : "instance_id", description : "Number of disk write requests"],
+        [name : "disk.write.bytes", type : "cumulative", measure : "bytes", resource : "instance_id", description : "Volume of disk write in bytes"],
+        [name : "cpu", type : "cumulative", measure : "unit", resource : "seconds", description : "CPU time used"],
+        [name : "network.incoming.bytes", type : "cumulative", measure : "bytes", resource : "instance_id", description : "number of incoming bytes on the network"],
+        [name : "network.outgoing.bytes", type : "cumulative", measure : "bytes", resource : "instance_id", description : "number of outgoing bytes on the network"],
+        [name : "network.incoming.packets", type : "cumulative", measure : "packets", resource : "instance_id", description : "number of incoming packets"],
+        [name : "network.outgoing.packets", type : "cumulative", measure : "packets", resource : "instance_id", description : "number of outgoing packets"],
+        [name : "image", type : "gauge", measure : "unit", resource : "image_id", description : "Image polling -> it (still) exists"],
+        [name : "image_size", type : "gauge", measure : "bytes", resource : "image_id", description : "Uploaded image size"],
+        [name : "image_download", type : "gauge", measure : "bytes", resource : "image_id", description : "Image is downloaded"],
+        [name : "image_serve", type : "gauge", measure : "bytes", resource : "image_id", description : "Image is served out"],
+        [name : "volume", type : "gauge", measure : "unit", resource : "measure_id", description : "Duration of volume"],
+        [name : "volume_size", type : "gauge", measure : "gb", resource : "measure_id", description : "Size of measure"]
+      ].each {
+  			println it
+				productsService.create(merchant.id, it)
+      }
+    }
+		def result = [
+			merchant : merchant.serialize(),
+			user : userRole.user.serialize()
+		]
+		result.user.roles = ["MERCHANT_ADMIN"]
+		result
   }
 
   def show(String id) {
