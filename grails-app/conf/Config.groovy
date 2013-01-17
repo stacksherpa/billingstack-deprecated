@@ -80,6 +80,8 @@ log4j = {
            'net.sf.ehcache.hibernate'
 }
 
+billingstack.admin_token=secret0
+
 if (System.properties["${appName}.config.location"]) {
 	grails.config.locations << "file:" + System.properties["${appName}.config.location"]
 } else if (new File("/etc/billingstack/billingstack.properties").exists()) {

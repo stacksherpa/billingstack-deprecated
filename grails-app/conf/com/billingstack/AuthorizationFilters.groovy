@@ -8,7 +8,7 @@ class AuthorizationFilters {
         all(controller:'*', action:'*') {
             before = {
                 def tokens = hazelcastService.map("tokens")
-                println "Hazelcast : " + tokens
+                //println "Hazelcast : " + tokens
             }
             after = { Map model ->
 

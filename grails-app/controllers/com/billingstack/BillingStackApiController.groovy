@@ -12,17 +12,17 @@ class BillingStackApiController {
 		try {
 			def json = request.JSON
 			def user
-			if(json.api_key && json.api_secret) {
+			if(json.token) {
+				//get merchant.id
+			} else if(json.api_key && json.api_secret) {
 				user = User.findByApiKeyAndApiSecret(json.api_key, json.api_secret)
 			} else if (json.username && json.password) {
 				user = User.findByUsernameAndPassword(json.username, json.password)
 			}
-			println user
 			if(user) {
 				def ur = UserRole.where {
 					(customer == null && user == user)
 				}.find()
-				println ur
 				def token = [
 					id : (UUID.randomUUID() as String).replaceAll('-',""), 
 					endpoint : createLink(params : [merchant : ur.merchant.id], absolute : true) as String,

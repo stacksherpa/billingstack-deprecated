@@ -11,16 +11,16 @@ class CustomersService {
     def usersService
 
     def findAllWhere(filters) {
-		def query = [:]
+    def query = [:]
         if(filters.merchant) {
             query['merchant.id'] = filters.merchant
         }
-    	Customer.findAllWhere(query)
+      Customer.findAllWhere(query)
     }
 
     def create(String merchant, json) {
         try {
-            def merchantRef = Merchant.get(merchant)
+            def merchantRef = Merchant.findByIdOrName(merchant, merchant)
             def customer = new Customer(
                 merchant : merchantRef,
                 name : json.name,
@@ -33,7 +33,7 @@ class CustomersService {
                 customer : customer,
                 role : Role.findByName("CUSTOMER_ADMIN"),
             ).save(failOnError: true)
-						def paymentGateway = paymentGatewaysService.load(merchant)
+            def paymentGateway = paymentGatewaysService.load(merchant)
             paymentGateway.createAccount([account : customer])
             customer
         } catch (e) {
@@ -43,13 +43,13 @@ class CustomersService {
     }
 
     def show(String id) { 
-     	Customer.get(id)
+      Customer.get(id)
     }
 
     def update(String id, json) { 
-    	def account = Customer.get(id)
-    	account.properties = json
-    	account
+      def account = Customer.get(id)
+      account.properties = json
+      account
     }
 
     def delete(String id) {
