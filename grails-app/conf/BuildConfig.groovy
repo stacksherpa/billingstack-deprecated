@@ -11,8 +11,6 @@ grails.project.source.level = 1.6
 //   run: [maxMemory:1024, minMemory:64, debug:false, maxPerm:256]
 //]
 
-grails.server.port.http=9090
-
 grails.project.dependency.resolution = {
     // inherit Grails' default dependencies
     inherits("global") {
@@ -72,3 +70,9 @@ grails.project.dependency.resolution = {
         test ":spock:0.7"
     }
 }
+
+grails.server.host = "0.0.0.0"
+//Port to run the embedded servlet container on ("run-app" and "run-war"). Integer.
+grails.server.port.http = 9090
+//Port to run the embedded servlet container on for HTTPS ("run-app --https" and "run-war --https"). Integer.
+grails.server.port.https = 9191
