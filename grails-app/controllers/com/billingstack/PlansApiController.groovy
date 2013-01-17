@@ -58,9 +58,8 @@ class PlansApiController {
     }
 
     def delete(String merchant, String id) {
-        try {
-            def instance = Plan.load(id)
-            instance.delete(flush : true)
+				try {
+            plansService.delete(id)
             render(status : 204)
         } catch(e) {
             response.status = 500
@@ -68,7 +67,6 @@ class PlansApiController {
             render error as JSON
             return
         }
-        
     }
 
 }
