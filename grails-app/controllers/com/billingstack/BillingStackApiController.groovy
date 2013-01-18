@@ -24,7 +24,11 @@ class BillingStackApiController {
 					(customer == null && user == user)
 				}.find()
 				def token = [
-					id : (UUID.randomUUID() as String).replaceAll('-',""), 
+					id : (UUID.randomUUID() as String).replaceAll('-',""),
+					merchant : [
+						id : ur.merchant.id,
+						name : ur.merchant.name
+					],
 					endpoint : createLink(params : [merchant : ur.merchant.id], absolute : true) as String,
 				]
 				def tokens = hazelcastService.map("tokens")
