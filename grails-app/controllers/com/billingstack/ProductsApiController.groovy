@@ -7,7 +7,7 @@ class ProductsApiController {
     def productsService
 
     def list() {
-		render productsService.findAllWhere(params).collect { it.serialize() } as JSON
+    render productsService.findAllWhere(params).collect { it.serialize() } as JSON
     }
 
     def create(String merchant) {
@@ -21,7 +21,19 @@ class ProductsApiController {
     }
 
     def show(String merchant, String id) {
-        render productsService.show(id).serialize() as JSON
+        try {
+          def product = productsService.show(id)
+          if(product) {
+            render product.serialize() as JSON
+          } else {
+            response.status = 404
+            render ""
+          }
+        } catch(e) {
+          def error = ["error":e.message]
+          render error as JSON
+          return
+        }
     }
 
     def update(String merchant, String id) { 
