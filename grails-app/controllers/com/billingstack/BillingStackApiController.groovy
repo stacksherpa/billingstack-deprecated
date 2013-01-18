@@ -23,8 +23,10 @@ class BillingStackApiController {
 				def ur = UserRole.where {
 					(customer == null && user == user)
 				}.find()
-				def token = [
-					id : (UUID.randomUUID() as String).replaceAll('-',""),
+				def access = [
+					token : [
+						id : (UUID.randomUUID() as String).replaceAll('-',"")
+					],
 					merchant : [
 						id : ur.merchant.id,
 						name : ur.merchant.name
@@ -32,7 +34,7 @@ class BillingStackApiController {
 					endpoint : createLink(params : [merchant : ur.merchant.id], absolute : true) as String,
 				]
 				def tokens = hazelcastService.map("tokens")
-				tokens.put(token.id, token)
+				tokens.put(access.token.id, access.token)
 				render(text: token as JSON, contentType: 'application/json', encoding:"UTF-8")
 			} else {
 				response.status = 403
