@@ -3,11 +3,11 @@ package com.billingstack
 class ProductsService {
 
   def findAllWhere(filters) {
-	def query = [:]
-	if(filters.merchant) {
-		query['merchant.id'] = filters.merchant
-	}
-	Product.findAllWhere(query)
+		def query = [:]
+		if(filters.merchant) {
+			query['merchant.id'] = filters.merchant
+		}
+		Product.findAllWhere(query)
   }
 
   def create(merchant, json) {
