@@ -35,7 +35,7 @@ class BillingStackApiController {
 				]
 				def tokens = hazelcastService.map("tokens")
 				tokens.put(access.token.id, access.token)
-				render(text: token as JSON, contentType: 'application/json', encoding:"UTF-8")
+				render(text: access as JSON, contentType: 'application/json', encoding:"UTF-8")
 			} else {
 				response.status = 403
 				def error = ["error":"Merchant not found"]
