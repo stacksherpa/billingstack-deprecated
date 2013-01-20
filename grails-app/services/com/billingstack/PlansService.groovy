@@ -27,6 +27,10 @@ class PlansService {
 		def update(String merchant, String id, json) {
 			
 			def plan = Plan.get(id)
+			plan.name = json.name
+			plan.title = json.title
+			plan.provider = json.provider
+			plan.description = json.description
 			
 			if(json.metadata) {
 				plan.metadata = json.metadata.toString()
