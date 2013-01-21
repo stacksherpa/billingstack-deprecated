@@ -1,16 +1,22 @@
 package com.billingstack
 
-class UserRole {
+class UserRole implements Serializable {
+  
+    Merchant merchant
+    
+    Customer customer
 
-		Merchant merchant
+    User user
 
-		Customer customer
-
-		User user
-
-		Role role
-
+    Role role
+    
     static constraints = {
-    	customer(nullable : true)
+      merchant nullable : true, unique : ['customer','user','role']
+      customer nullable : true
+    }
+
+    static mapping = {
+      id composite: ['user', 'role']
+      version false
     }
 }

@@ -29,10 +29,11 @@ class CustomersService {
                 currency : json.currency ?: merchantRef.currency,
                 language : json.language ?: merchantRef.language
             ).save(flush : true, failOnError : true)
+						def user = usersService.create(merchant, customer.id, json.user)
             UserRole.newInstance(
-                user : usersService.create(json.user),
-                merchant : merchantRef,
-                customer : customer,
+								merchant : merchantRef,
+								customer : customer,
+                user : user,
                 role : Role.findByName("CUSTOMER_ADMIN"),
             ).save(failOnError: true)
 						if(grailsApplication.config.billingstack.use_payment_gateways) {
@@ -58,6 +59,7 @@ class CustomersService {
 
     def delete(String id) {
       UserRole.executeUpdate "DELETE FROM UserRole WHERE customer.id = :id", [id: id]
+			User.executeUpdate "DELETE FROM User WHERE customer.id = :id", [id: id]
       InvoiceLine.executeUpdate "DELETE FROM InvoiceLine WHERE customer.id = :id", [id: id]
       Invoice.executeUpdate "DELETE FROM Invoice WHERE customer.id = :id", [id: id]
       Usage.executeUpdate "DELETE FROM Usage WHERE customer.id = :id", [id: id]

@@ -2,11 +2,17 @@ package com.billingstack
 
 class UsersService {
 
-	def create(json) {
+	def create(String merchant, String customer, json) {
   	if (!json.username) {	
   		throw new RuntimeException("Username is mandatory")  
   	}
     def user = new User()
+		if(merchant) {
+			user.merchant = Merchant.findByIdOrName(merchant, merchant)
+		}
+		if(customer) {
+			user.customer = Customer.findByIdOrName(customer, customer)
+		}
     user.username = json.username
     user.password = json.password
     user.language = json.language

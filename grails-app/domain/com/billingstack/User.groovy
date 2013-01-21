@@ -2,6 +2,9 @@ package com.billingstack
 
 class User extends BillingEntity {
 
+    Merchant merchant
+    Customer customer
+
     String username
     String password
 
@@ -11,13 +14,13 @@ class User extends BillingEntity {
     String apiSecret
 
     static constraints = {
-    	username(unique : true)
-    	password(nullable : true)
-
-        language(nullable : true)
-
-    	apiKey(nullable : true)
-    	apiSecret(nullable : true)
+      merchant(nullable : true)
+      customer(nullable : true)
+      username(blank : false, unique : ['merchant', 'customer'])
+      password(nullable : true)
+      language(nullable : true)
+      apiKey(nullable : true, unique : 'apiSecret')
+      apiSecret(nullable : true)
 
     }
 
@@ -26,12 +29,11 @@ class User extends BillingEntity {
             'id' : id,
             'username' : username,
             'language' : language,
-            
         ]
-		def contactInformation = ContactInformation.findByUser(this)
-		if(contactInformation) {
-			json.contact_information = contactInformation.serialize()
-		}
+        def contactInformation = ContactInformation.findByUser(this)
+        if(contactInformation) {
+          json.contact_information = contactInformation.serialize()
+        }
         if(detail) {
             json.api_key = apiKey
             json.api_secret = apiSecret

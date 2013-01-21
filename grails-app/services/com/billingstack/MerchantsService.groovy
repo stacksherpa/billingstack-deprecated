@@ -18,9 +18,10 @@ class MerchantsService {
       currency : json.currency ?: "USD",
       language : json.language ?: "EN"
     ).save(flush : true, failOnError: true)
+		def user = usersService.create(merchant.id, null, json.user)
     def userRole = UserRole.newInstance(
-      user : usersService.create(json.user),
-      merchant : merchant,
+			merchant : merchant,
+      user : user,
       role : Role.findByName("MERCHANT_ADMIN")
     ).save(failOnError: true)
 		//this should be part of a plugin in a near future
@@ -71,6 +72,7 @@ class MerchantsService {
 
   def delete(String id) {
       UserRole.executeUpdate "DELETE FROM UserRole WHERE merchant.id = :id", [id: id]
+			User.executeUpdate "DELETE FROM User WHERE merchant.id = :id", [id: id]
       InvoiceLine.executeUpdate "DELETE FROM InvoiceLine WHERE merchant.id = :id", [id: id]
       Invoice.executeUpdate "DELETE FROM Invoice WHERE merchant.id = :id", [id: id]
       Usage.executeUpdate "DELETE FROM Usage WHERE merchant.id = :id", [id: id]
