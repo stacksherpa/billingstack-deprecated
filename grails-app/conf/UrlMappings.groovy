@@ -8,7 +8,7 @@ class UrlMappings {
 			action = [GET : "list", POST : "create"]
 		}
 		"/users"(controller : "usersApi") {
-			action = [GET : "list"]
+			action = [POST : "create", GET : "list"]
 		}
 		"/roles"(controller : "rolesApi") {
 			action = [GET : "list"]
@@ -21,7 +21,7 @@ class UrlMappings {
 			constraints { merchant(notEqual: 'dbconsole') }
 		}
 		"/$merchant/users"(controller : "usersApi"){
-			action = [GET : "list"]
+			action = [POST : "create", GET : "list"]
 		}
 		"/$merchant/users/$id"(controller : "usersApi"){
 			action = [GET : "show"]

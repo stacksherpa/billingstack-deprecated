@@ -15,7 +15,6 @@ class CustomersApiController {
             render error as JSON
             return
         }
-    	
     }
 
     def create(String merchant) {

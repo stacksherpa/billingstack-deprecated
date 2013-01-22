@@ -6,9 +6,9 @@ class UsersApiController {
   
   def usersService
   
-  def create() {
+  def create(String merchant, String customer) {
       try {
-          def instance = usersService.create(request.JSON)
+          def instance = usersService.create(merchant, customer, request.JSON)
           render instance.serialize() as JSON
       } catch(e) {
           response.status = 500
@@ -26,7 +26,7 @@ class UsersApiController {
       } else {
 				query['customer'] = null
 			}
-      render UserRole.findAllWhere(query).collect { it.user.serialize() } as JSON
+      render User.findAllWhere(query).collect { it.serialize() } as JSON
     } catch(e) {
       log.error(e.message, e)
       response.status = 500
@@ -39,22 +39,13 @@ class UsersApiController {
   def show(String merchant, String customer, String id) { 
     try {
       def user = User.get(id)
-      if(user) {
-        def query = ['merchant.id':merchant, 'user.id' : id]
-        if(customer) {
-          query['customer.id'] = customer
-        }
-        def roles = UserRole.findAllWhere(query).collect { it.role.serialize() }
-        if(roles) {
-          def result = user.serialize()
-          result.roles = roles
-          render result as JSON
-        } else {
-          response.status = 404
-          def error = ["error":"User not found"]
-          render error as JSON
-        }
-      }
+			if (user) {
+				render user.serialize() as JSON
+			} else {
+				response.status = 404
+        def error = ["error":"User not found"]
+        render error as JSON
+			}
     } catch(e) {
       log.error(e.message, e)
       response.status = 500
