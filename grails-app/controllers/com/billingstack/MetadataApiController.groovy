@@ -7,16 +7,12 @@ class MetadataApiController {
 		def metadataService
 		
 		def show(String id) {
-			def entity = BillingEntity.get(id)
-			def metadata = [:]
-			metadataService.list(entity).each {
-				metadata[it.key] = it.value
-			}
-			render metadata as JSON
+			render contentType : "application/json", text : BillingEntity.get(id).metadata
 		}
 
 		def update(String id) {
 			def entity = BillingEntity.get(id)
-			render metadataService.update(entity, request.JSON) as JSON
+			metadataService.update(entity, request.JSON)
+			show(id)
 		}
 }

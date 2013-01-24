@@ -8,7 +8,7 @@ class MerchantsApiController {
 
   def list() {
     try {
-          render merchantsService.list(params).collect { it.serialize() } as JSON
+      render merchantsService.list(params).collect { it.serialize() } as JSON
     } catch(e) {
       log.error(e.message,e)
       response.status = 500
@@ -22,11 +22,11 @@ class MerchantsApiController {
     try {
       render merchantsService.create(request.JSON) as JSON
     } catch(e) {
-    log.error(e.message,e)
-    response.status = 500
-    def error = ["error":e.message]
-    render error as JSON
-    return
+      log.error(e.message,e)
+      response.status = 500
+      def error = ["error":e.message]
+      render error as JSON
+      return
     }
   }
 
