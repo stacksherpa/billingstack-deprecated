@@ -1,0 +1,116 @@
+curl -i -X POST -H 'Content-Type: application/json' -d '{
+  "name" : "stacksherpa",
+  "currency" : "EUR",
+  "user" : {
+    "username" : "luis",
+    "password" : "secret0"
+  }
+}' http://localhost:8080/billingstack/merchants
+
+export MERCHANT_ID=402881e53bfde28d013bfde2ec110000
+
+curl http://localhost:8080/billingstack/merchants
+
+curl http://localhost:8080/billingstack/$MERCHANT_ID/users
+
+export USER_ID=402881e53bfde28d013bfde2ec7f0001
+
+curl http://localhost:8080/billingstack/$MERCHANT_ID/users/$USER_ID
+
+curl http://localhost:8080/billingstack/$MERCHANT_ID/users/$USER_ID/roles
+
+curl -i -X POST -H 'Content-Type: application/json' -d '{
+	"name" : "braintree",
+	"title" : "Braintree",
+	"description" : "Braintree Payments",
+	   "is_default" : true,
+	   "metadata" : {
+	   "environment" : "sandbox",
+	   "merchant_id" : "5mtj4sf8bm94v5t8",
+	   "public_key" : "c6mv34m9yvcv3jpb",
+	   "private_key" : "3f1dad64a338342ab7172d48bd8ebca4"
+	}
+}' http://localhost:8080/billingstack/$MERCHANT_ID/payment-gateways
+
+curl -i -X POST -H 'Content-Type: application/json' -d '{
+	"name" : "instance:m1.tiny",
+}' http://localhost:8080/billingstack/$MERCHANT_ID/products
+
+export PRODUCT1_ID=402881e53bfde28d013bfe11c67c0003
+
+curl -i -X POST -H 'Content-Type: application/json' -d '{
+	"name" : "volume",
+}' http://localhost:8080/billingstack/$MERCHANT_ID/products
+
+export PRODUCT2_ID=402881e53bfde28d013bfe1202520004
+
+curl -X POST -H 'Content-Type: application/json' -d '{
+    "name":"plan",
+    "metadata" : { "quotas" : { "x" : 1 } },
+    "products" : [
+        {
+            "name" : "instance:m1.tiny",
+            "rules" : [
+                {"type" : "fixed", "price" : 15}
+            ]
+        },
+        {
+            "name" : "storage",
+            "rules" : [
+                {
+                    "type" : "volume-range",
+                    "ranges" : [
+                        {"to" : 9.99, "price" : 100},
+                        {"from" : 10, "to" : 19.99, "price" : 50},
+                        {"from" : 20, "price" : 50}
+                    ]
+                }
+            ]
+        }
+    ]
+}' http://localhost:8080/billingstack/$MERCHANT_ID/plans
+
+export PLAN_ID=402881e53bfde28d013bfe3406e50006
+
+curl -X POST -H 'Content-Type: application/json' -d '{
+    "name" : "woorea",
+    "currency" : "EUR",
+    "user" : {
+      "username" : "woorea",
+      "password" : "secret0"
+    }
+}' http://localhost:8080/billingstack/$MERCHANT_ID/customers
+
+export CUSTOMER_ID=402881e53bfde28d013bfe362230000c
+
+curl -X POST -H 'Content-Type: application/json' -d "{
+    \"plan\": {
+        \"id\" : \"$PLAN_ID\"
+    },
+    \"provider\" : \"openstack\",
+    \"resource\" : \"tenant:1234\"
+}" http://localhost:8080/billingstack/$MERCHANT_ID/customers/$CUSTOMER_ID/subscriptions
+
+export SUBSCRIPTION_ID=402881e53bfde28d013bfe3f3c6a0012
+
+curl -X POST -H 'Content-Type: application/json' -d '[
+    {
+        "provider" : "openstack",
+        "resource" : "tenant:1234",
+        "product" : {"name" : "instance:m1.tiny"},
+        "value" : 250,
+        "measure" : "minutes"
+    },
+    {
+        "provider" : "openstack",
+        "resource" : "tenant:1234",
+        "product" : {"name" : "storage"},
+        "value" : 100,
+        "measure" : "gb"
+    }
+]' http://localhost:8080/billingstack/$MERCHANT_ID/usages
+
+curl -X POST http://localhost:8080/billingstack/$MERCHANT_ID/bill
+
+curl http://localhost:8080/billingstack/$MERCHANT_ID/invoices
+

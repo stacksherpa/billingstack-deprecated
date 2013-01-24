@@ -1,33 +1,23 @@
 package com.billingstack
 
-class Merchant {
+class Merchant extends BillingEntity {
 
-	String id
-	String name
+  String name
 
-	String language = "EN"
-	String currency = "USD"
-	
-	Date dateCreated
-    Date lastUpdated
+  String language = "EN"
+  String currency = "USD"
 
-    Boolean deleted = Boolean.FALSE
+  static constraints = {
+		
+  }
 
-	static constraints = {
-
-	}
-	
-	static mapping = {
-		id generator : "uuid", type : "string"
-	}
-
-	def serialize() {
-		def json = [
-			'id' : id,
-			'name' : name,
-			'language' : language,
-			'currency' : currency
-		]
-		json
-	}
+  def serialize() {
+    def json = [
+      'id' : id,
+      'name' : name,
+      'language' : language,
+      'currency' : currency
+    ]
+    json
+  }
 }

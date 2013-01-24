@@ -46,7 +46,7 @@ class BillingStackApiController {
 					access.merchant = [
 						id : merchant.id,
 						name : merchant.name,
-						endpoint : createLink(controller : 'billingStackApi', params : [merchant : merchant.id], absolute : true) as String
+						endpoint : createLink(controller : 'merchantsApi', params : [id : merchant.id], absolute : true) as String
 					]
 					if(json.customer) {
 						def customer = Customer.findByIdOrName(json.customer, json.customer)

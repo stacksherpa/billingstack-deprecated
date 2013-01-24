@@ -1,15 +1,17 @@
 package com.billingstack
 
 class MerchantsService {
-	
-	def grailsApplication
+  
+  def grailsApplication
+  
+  def notificationsService
 
   def usersService
 
-	def productsService
+  def productsService
 
   def list(filters) { 
-  	Merchant.list(filters)
+    Merchant.list(filters)
   }
 
   def create(json) {
@@ -17,15 +19,16 @@ class MerchantsService {
       name : json.name,
       currency : json.currency ?: "USD",
       language : json.language ?: "EN"
-    ).save(flush : true, failOnError: true)
-		def user = usersService.create(merchant.id, null, json.user)
+    )
+    merchant.save(flush : true, failOnError: true)
+    def user = usersService.create(merchant.id, null, json.user)
     def userRole = UserRole.newInstance(
-			merchant : merchant,
+      merchant : merchant,
       user : user,
       role : Role.findByName("MERCHANT_ADMIN")
     ).save(failOnError: true)
-		//this should be part of a plugin in a near future
-		if(grailsApplication.config.billingstack.load_ceilometer_products) {
+    //this should be part of a plugin in a near future
+    if(grailsApplication.config.billingstack.load_ceilometer_products) {
       [
         [name : "instance", type : "gauge", measure : "unit", resource : "instance_id", description : "Duration of instance"],
         [name : "memory", type : "gauge", measure : "mb", resource : "instance_id", description : "Volume of RAM in MB"],
@@ -48,16 +51,16 @@ class MerchantsService {
         [name : "volume", type : "gauge", measure : "unit", resource : "measure_id", description : "Duration of volume"],
         [name : "volume_size", type : "gauge", measure : "gb", resource : "measure_id", description : "Size of measure"]
       ].each {
-  			println it
-				productsService.create(merchant.id, it)
+        productsService.create(merchant.id, it)
       }
     }
-		def result = [
-			merchant : merchant.serialize(),
-			user : userRole.user.serialize()
-		]
-		result.user.roles = ["MERCHANT_ADMIN"]
-		result
+    def result = [
+      merchant : merchant.serialize(),
+      user : userRole.user.serialize()
+    ]
+    result.user.roles = ["MERCHANT_ADMIN"]
+    notificationsService.push(grailsApplication.config.billingstack.push_notifications_endpoint,'merchant.created',result)
+    result
   }
 
   def show(String id) {
@@ -65,14 +68,14 @@ class MerchantsService {
   }
 
   def update(String id, json) { 
-  	def merchant = Merchant.get(id)
-  	merchant.properties = json
- 		merchant
+    def merchant = Merchant.get(id)
+    merchant.properties = json
+    merchant
   }
 
   def delete(String id) {
       UserRole.executeUpdate "DELETE FROM UserRole WHERE merchant.id = :id", [id: id]
-			User.executeUpdate "DELETE FROM User WHERE merchant.id = :id", [id: id]
+      User.executeUpdate "DELETE FROM User WHERE merchant.id = :id", [id: id]
       InvoiceLine.executeUpdate "DELETE FROM InvoiceLine WHERE merchant.id = :id", [id: id]
       Invoice.executeUpdate "DELETE FROM Invoice WHERE merchant.id = :id", [id: id]
       Usage.executeUpdate "DELETE FROM Usage WHERE merchant.id = :id", [id: id]

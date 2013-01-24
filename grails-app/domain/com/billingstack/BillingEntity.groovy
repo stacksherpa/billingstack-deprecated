@@ -1,6 +1,6 @@
 package com.billingstack
 
-abstract class BillingEntity {
+class BillingEntity {
 
     String id
 
@@ -10,15 +10,15 @@ abstract class BillingEntity {
     Boolean deleted = Boolean.FALSE
 
     static constraints = {
-    	id()
-    	dateCreated()
-    	lastUpdated()
-    	deleted()
+      id()
+      dateCreated()
+      lastUpdated()
+      deleted()
     }
 
     static mapping = {
-    	id generator : "uuid", type : "string"
-        tablePerHierarchy false
+      id generator : "uuid", type : "string"
+      tablePerHierarchy false
     }
     
 }

@@ -6,18 +6,18 @@ class SubscriptionsService {
 
     def findAllWhere(filters) {
         def query = [:]
-    	def subscriptions
+      def subscriptions
         if(filters.merchant) {
             query['merchant.id'] = filters.merchant   
         }
-    	if(filters.customer) {
-            query['customer.id'] = filters.customer	
-  		}
-		Subscription.findAllWhere(query)
+      if(filters.customer) {
+            query['customer.id'] = filters.customer 
+      }
+    Subscription.findAllWhere(query)
     }
 
     def create(String merchant, String customer, json) {
-		def instance = new Subscription()
+      def instance = new Subscription()
 
         //use an existing credit card or create a new one
         if(json.credit_card) {
@@ -29,20 +29,20 @@ class SubscriptionsService {
                 instance.paymentMethod = paymentGateway.createCreditCard(customer, json.credit_card).target.token
             }
         }
-	    	instance.merchant = Merchant.load(merchant)
+        instance.merchant = Merchant.load(merchant)
         instance.customer = Customer.load(customer)
         instance.plan = Plan.load(json.plan.id)
         instance.billingDay = new Date().date
-				instance.resource = json.resource
+        instance.resource = json.resource
         instance.save(flush : true, failOnError : true)
     }
 
     def show(String id) { 
-    	Subscription.get(id)
+      Subscription.get(id)
     }
 
     def update(String id) { 
-    	Subscription.get(id)
+      Subscription.get(id)
     }
 
     def delete(String id) {
