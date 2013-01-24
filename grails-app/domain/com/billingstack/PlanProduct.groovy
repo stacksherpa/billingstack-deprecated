@@ -12,7 +12,7 @@ class PlanProduct implements Serializable {
 	}
 
 	def findAllRules() {
-		PlanProductRule.findAllByProduct(this)
+		PlanProductRule.findAllByPlanAndProduct(plan, product)
 	}
 	
 	static mapping = {

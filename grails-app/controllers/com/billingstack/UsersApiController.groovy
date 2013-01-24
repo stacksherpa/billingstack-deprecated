@@ -55,4 +55,17 @@ class UsersApiController {
     }
   }
 
+	def delete(String merchant, String id) {
+      try {
+          usersService.delete(id)
+          render(status : 204)
+      } catch(e) {
+          response.status = 500
+          def error = ["error":e.message]
+          render error as JSON
+          return
+      }
+
+  }
+
 }

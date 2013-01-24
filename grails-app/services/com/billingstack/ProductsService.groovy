@@ -27,7 +27,10 @@ class ProductsService {
   }
 
   def delete(String id) {
-      Product.get(id).delete(flush:true)
+			PlanProductRuleRange.executeUpdate "DELETE FROM PlanProductRuleRange WHERE product.id = :id", [id: id]
+			PlanProductRule.executeUpdate "DELETE FROM PlanProductRule WHERE product.id = :id", [id: id]
+			PlanProduct.executeUpdate "DELETE FROM PlanProduct WHERE product.id = :id", [id: id]
+      Product.load(id).delete(flush:true)
   }
 
 }

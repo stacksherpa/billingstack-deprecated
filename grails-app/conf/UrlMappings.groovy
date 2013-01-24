@@ -51,7 +51,7 @@ class UrlMappings {
 			action = [POST : "create", GET : "list"]
 		}
 		"/$merchant/customers/$customer/users/$id"(controller : "usersApi"){
-			action = [GET : "show"]
+			action = [GET : "show", DELETE : "delete", PUT : "update"]
 		}
 		"/$merchant/customers/$customer/users/$user/roles"(controller : "userRolesApi"){
 			action = [GET : "list"]

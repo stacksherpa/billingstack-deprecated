@@ -4,7 +4,7 @@ import grails.converters.JSON
 
 class InvoicesApiController {
 
-	def invoicesService
+  def invoicesService
 
     def list() {
       try {
@@ -15,13 +15,13 @@ class InvoicesApiController {
             render error as JSON
             return
         }
-    	
+      
     }
 
     def create(String merchant, String customer) {
       try {
             def instance = invoicesService.create(merchant, customer, request.JSON)
-			render instance.serialize() as JSON
+      render instance.serialize() as JSON
         } catch(e) {
             response.status = 500
             def error = ["error":e.message]
@@ -33,14 +33,22 @@ class InvoicesApiController {
 
     def show(String merchant, String id) { 
       try {
-            render invoicesService.show(id).serialize() as JSON
-        } catch(e) {
-            response.status = 500
-            def error = ["error":e.message]
-            render error as JSON
-            return
-        }
-    	
+        def invoice = invoicesService.show(id)
+        if(invoice) {
+          render invoice.serialize() as JSON
+        } else {
+          response.status = 404
+          def error = ["error":"invoice not found"]
+          render error as JSON
+          return
+        }          
+      } catch(e) {
+          response.status = 500
+          def error = ["error":e.message]
+          render error as JSON
+          return
+      }
+      
     }
 
     def update(String merchant, String id) {
@@ -52,7 +60,7 @@ class InvoicesApiController {
             render error as JSON
             return
         }
-    	
+      
     }
 
     def delete(String merchant, String id) { 
@@ -66,7 +74,7 @@ class InvoicesApiController {
             render error as JSON
             return
         }
-    	
+      
     }
 
 }

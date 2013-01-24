@@ -4,6 +4,7 @@ class PlanProductRuleRange extends BillingEntity {
 
 	Merchant merchant
 	Plan plan
+	Product product
 	PlanProductRule rule
 	BigDecimal valueFrom
 	BigDecimal valueTo

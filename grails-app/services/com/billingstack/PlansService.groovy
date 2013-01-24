@@ -67,7 +67,7 @@ class PlansService {
 				def planProduct = PlanProduct.newInstance(merchant : plan.merchant, plan : plan, product : product).save()
 				if(current.rules) {
 					current.rules.each { rule ->
-						def planProductRule = new PlanProductRule(merchant : plan.merchant, plan : plan, product : planProduct, type : rule.type)
+						def planProductRule = new PlanProductRule(merchant : plan.merchant, plan : plan, product : product, type : rule.type)
 						if(rule.type == 'fixed') {
 								planProductRule.price = rule.price
 								planProductRule.save()
