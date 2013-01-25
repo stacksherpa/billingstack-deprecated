@@ -83,7 +83,7 @@ log4j = {
 billingstack.admin_token=secret0
 billingstack.use_payment_gateways=false
 billingstack.load_ceilometer_products=true
-billingstack.push_notifications_endpoint='http://requestb.in/v6k9stv6'
+billingstack.push_notifications_endpoint='http://requestb.in/17uv11k1'
 
 if (System.properties["${appName}.config.location"]) {
 	grails.config.locations << "file:" + System.properties["${appName}.config.location"]

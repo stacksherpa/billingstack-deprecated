@@ -3,8 +3,6 @@ package com.billingstack
 class MerchantsService {
   
   def grailsApplication
-  
-  def notificationsService
 
   def usersService
 
@@ -59,7 +57,6 @@ class MerchantsService {
       user : userRole.user.serialize()
     ]
     result.user.roles = ["MERCHANT_ADMIN"]
-    notificationsService.push(grailsApplication.config.billingstack.push_notifications_endpoint,'merchant.created',result)
     result
   }
 
