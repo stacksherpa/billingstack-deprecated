@@ -7,7 +7,7 @@ class MetadataApiController {
 		def metadataService
 		
 		def show(String id) {
-			render contentType : "application/json", text : BillingEntity.get(id).metadata
+			render contentType : "application/json", text : BillingEntity.get(id).metadata ?: "{}"
 		}
 
 		def update(String id) {
